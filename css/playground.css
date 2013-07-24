@@ -11,3 +11,20 @@
 	text-align: center;
 	margin-top: 0;
 }
+
+.medgraph {
+	width: 450px;
+	height: 450px;
+}
+
+.graphcontrols {
+	margin-left: 132px;
+	position: relative;
+	top: -32px;
+}
+
+.mousepos {
+	margin-left: 5px;
+	padding-top: 4px;
+	font-size: small;
+}

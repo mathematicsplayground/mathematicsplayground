@@ -26,7 +26,6 @@
 				</div>
 
 				<div>
-
 					<h2>Equation of a circle</h2>
 
 					<br />
@@ -39,14 +38,16 @@
 
 					<br />
 
-					<center><div id='eqcirc' class='jxgbox' style='width: 450px; height: 450px;'></div></center>
+					<center><div id='eqcirc' class='jxgbox medgraph'></div></center>
+					<div class='graphcontrols'><button onclick="jsx.zoom100(); jsx.moveOrigin(225, 225); ">Reset position</button> <span class='mousepos' id='mousepos'></span></div>
 
 					<br />					
 
 					<center>$(X - $<span id='a'>a</span>$)^2 + (Y - $<span id='b'>b</span>$)^2 = $<span id='r'>r</span>$^2$</centeR>
 
 					<script type='text/javascript'>
-						var jsx = JXG.JSXGraph.initBoard('eqcirc', {boundingbox: [-6, 6, 6, -6], grid: true, showcopyright: false});
+						var jsx = JXG.JSXGraph.initBoard('eqcirc', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						jsx.attr.pan.needShift = true;
 						var r = jsx.createElement('slider', [[-5,5], [4.5,5], [0,1,5]], {name:'r', snapWidth:0.1});
 						var centre = jsx.create('point', [0,0], {strokeColor: 'black', fillColor: 'white', name:''});
 						var circ = jsx.create('circle', [centre, 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
@@ -56,6 +57,10 @@
 							$('#a').text(' ' + circ.center.X().toFixed(2));
 							$('#b').text(' ' + circ.center.Y().toFixed(2));
 							$('#r').text(' ' + circ.getRadius().toFixed(2));
+						});
+						jsx.on('mousemove', function(e) {
+							var mPos = jsx.getUsrCoordsOfMouse(e);
+							$('#mousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 						});
 						jsx.update();
 					</script>
