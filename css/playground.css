@@ -28,3 +28,12 @@
 	padding-top: 4px;
 	font-size: small;
 }
+
+label {
+	display: inline;
+	margin-left: 1em;
+}
+
+input {
+	margin-top: 0px !important;
+}
