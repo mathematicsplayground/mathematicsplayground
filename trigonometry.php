@@ -11,7 +11,6 @@
 			MathJax.Hub.Config({
 				tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
 			});
-			JXG.Options.text.useMathJax = true;
 		</script>
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -48,6 +47,12 @@
 					<center><div id='radgraph' class='jxgbox medgraph'></div></center>
 					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(225, 225); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span></div>
 
+					<br />
+					
+					<center>
+					<span id='rad'>&theta;</span>$ * \frac{180}{\pi} = $<span id='deg'>0</span>&deg;
+					</center>
+
 					<br /><br />
 
 					<script type='text/javascript'>
@@ -75,8 +80,10 @@
 							if(radangle.Y() < 0) {
 								rad = (Math.PI + (Math.PI - rad))
 							}					
-							deg = (rad * 180/Math.PI)
+							deg = (rad * 180/Math.PI);
 							radangle.setLabelText(rad.toFixed(2) + " rad or " + deg.toFixed(0) + "&deg;");
+							$("#rad").html(rad.toFixed(2) + ' ');
+							$("#deg").html(' ' + deg.toFixed(2));
 						});
 						radjsx.update();
 					</script>
