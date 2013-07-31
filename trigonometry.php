@@ -192,6 +192,15 @@
 						sp.setPosition(JXG.COORDS_BY_USER, [unitangle.X(), unitangle.Y()]);
 						scp.setPosition(JXG.COORDS_BY_USER, [unitangle.X(), 0]);
 
+						unitjsx.create('text', [0.77, 0.77, "&pi;/4"]);
+						unitjsx.create('text', [-0.05, 1.1, "&pi;/2"]);
+						unitjsx.create('text', [-0.9, 0.78, "3&pi;/4"]);
+						unitjsx.create('text', [-1.1, 0.0, "&pi;"]);
+						unitjsx.create('text', [-0.9, -0.78, "5&pi;/4"]);
+						unitjsx.create('text', [-0.07, -1.15, "3&pi;/2"]);
+						unitjsx.create('text', [0.77, -0.78, "7&pi;/4"]);
+						unitjsx.create('text', [1.1, 0.0, "0 or 2&pi;"]);
+
 						unitjsx.on('update', function(){
 							rad = Math.acos(unitangle.X());
 							if(unitangle.Y() < 0) {
