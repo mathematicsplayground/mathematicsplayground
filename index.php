@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Mathematics Playground</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="css/playground.css" rel="stylesheet" media="screen">
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-	</head>
-	<body>
+<?php
+$title = 'Mathematics Playground';
+require_once('header.php');
+?>
+
 		<div class="container-fluid">
 			<?php require_once('menu.html'); ?>
 			<div class="span9">

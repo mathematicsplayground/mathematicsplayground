@@ -1,41 +1,25 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Trigonometry - Mathematics Playground</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="css/playground.css" rel="stylesheet" media="screen">
-		<link href="css/jsxgraph.css" rel="stylesheet" media="screen">
-		<script type="text/x-mathjax-config">
-			MathJax.Hub.Config({
-				tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-			});
-		</script>
-		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jsxgraphcore.js"></script>
-	</head>
-	<body>
+<?php 
+$title = 'Trigonometry - Mathematics Playground';
+
+require_once('header.php');
+?>
+
 		<div class="container-fluid">
 			<?php require_once('menu.html'); ?>
 			<div class="span9">
 				<div class="hero-unit">
 					<h1>Trigonometry</h1>
 				</div>
-		<div class="dropdown clearfix" style='float: right; margin-left: 1em;'>
-			<ul class="dropdown-menu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
-			
-			<li><a href="#radians">Radians</a></li>
-			<li><a href="#pythagoras">Pythagoras</a></li>
-			<li><a href="#sincostan">Unit Circle &mdash; Sine, Cosine and Tangent</a></li>
-			<li><a href="#equationcircle">Equation of a Circle</a></li>
-              </ul>
-            </div>
+				<div class="dropdown clearfix" style='float: right; margin-left: 1em;'>
+					<ul class="dropdown-menu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+						<li><a href="#radians">Radians</a></li>
+						<li><a href="#pythagoras">Pythagoras</a></li>
+						<li><a href="#sincostan">Unit Circle &mdash; Sine, Cosine and Tangent</a></li>
+						<li><a href="#equationcircle">Equation of a Circle</a></li>
+					</ul>
+				</div>
 
 				<div>
-
 					<h2 id='radians'>Radians</h2>
 
 					<br />
@@ -187,8 +171,8 @@
 						sinjsx.create('functiongraph', [ function(t) { return Math.cos(t); }, -100, 100],{strokeColor: "#f00"});
 						sinjsx.create('functiongraph', [ function(t) { return Math.tan(t); }, -100, 100],{strokeColor: "#0f0"});
 						var circ = unitjsx.create('circle', [[0, 0], 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
-						var sp = unitjsx.create('point', [1, 0], {size: 0, fixed: true, name: ''});
-						var scp = unitjsx.create('point', [0, 0], {size: 0, fixed: true, name: ''});
+						var sp = unitjsx.create('point', [1, 0], {size: 0.1, fixed: true, name: ''});
+						var scp = unitjsx.create('point', [0, 0], {size: 0.1, fixed: true, name: ''});
 						var sinline = unitjsx.create('line', [sp, scp], {strokeColor: '#00f', name: 'sin', withLabel: true});
 						sinline.setLabelRelativeCoords([3, -35]);
 						sinline.setStraight(false, false);
