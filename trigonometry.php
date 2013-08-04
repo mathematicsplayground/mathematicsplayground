@@ -29,7 +29,7 @@ require_once('header.php');
 					<br /><br />
 
 					<center><div id='radgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(225, 225); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span></div>
+					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(radox, radoy); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span></div>
 
 					<br />
 					
@@ -41,6 +41,8 @@ require_once('header.php');
 
 					<script type='text/javascript'>
 						var radjsx = JXG.JSXGraph.initBoard('radgraph', {boundingbox: [-1.5, 1.5, 1.5, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var radox = radjsx.origin.scrCoords[1];
+						var radoy = radjsx.origin.scrCoords[2];
 						var radcirc = radjsx.create('circle', [[0, 0], 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
 						var radcentre = radjsx.create('point', [0, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
 						var radstart = radjsx.create('point', [1, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
@@ -85,7 +87,7 @@ require_once('header.php');
 					<br /><br />
 
 					<center><div id='pythgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="pythjsx.zoom100(); pythjsx.moveOrigin(225, 225); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span><br /><br /><input type='checkbox' id='showsquares' onclick='showSquares();' /><label for='showsquares'>Show squares</label></div>
+					<div class='graphcontrols'><button onclick="pythjsx.zoom100(); pythjsx.moveOrigin(pythox, pythoy); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span><br /><br /><input type='checkbox' id='showsquares' onclick='showSquares();' /><label for='showsquares'>Show squares</label></div>
 
 					<center>
 					<span id='pya'>a</span>$^2 + $<span id='pyb'>b</span>$^2 = $<span id='pyc'> c</span>$^2$<br />
@@ -94,8 +96,10 @@ require_once('header.php');
 
 					<script type='text/javascript'>
 						var pythjsx = JXG.JSXGraph.initBoard('pythgraph', {boundingbox: [-18, 32, 32, -18], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var pythox = pythjsx.origin.scrCoords[1];
+						var pythoy = pythjsx.origin.scrCoords[2];
 						var pa = pythjsx.createElement('slider', [[1,1], [1,15], [0,8,14]], {name:'a', snapWidth:0.1});
-						var pb = pythjsx.createElement('slider', [[1,1], [15,1], [0,8,14]], {name:'b', snapWidth:0.1});
+						var pb = pythjsx.createElement('slider', [[1,1], [15,1], [0,6,14]], {name:'b', snapWidth:0.1});
 						var corner = pythjsx.create('point', [1,1], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
 						var poly = pythjsx.create('polygon', [pa, pb, corner]);
 						var sqa = pythjsx.create('regularpolygon', [corner, pa, 4], {fillColor: '#88f', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
@@ -162,7 +166,9 @@ require_once('header.php');
 
 					<script type='text/javascript'>
 						var unitjsx = JXG.JSXGraph.initBoard('unitgraph', {boundingbox: [-1.5, 1.5, 1.5, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var sinjsx = JXG.JSXGraph.initBoard('singraph', {boundingbox: [0, 1.5, 6.31, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var sinjsx = JXG.JSXGraph.initBoard('singraph', {boundingbox: [0, 1.5, 6.31, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: false, pan: {needShift: false}});
+						sinjsx.create('axis', [[0, 0], [1, 0]], {ticks: {scale: Math.PI, scaleSymbol: '&pi;'}});
+						sinjsx.create('axis', [[0, 0], [0, 1]]);
 						var singraph = sinjsx.create('functiongraph', [ function(t) { return Math.sin(t); }, -100, 100],{strokeColor: "#00f"});
 						var sinpos = sinjsx.create('point', [0, 0, singraph], {strokeColor: '#00f', fixed: true, fillColor: '#00f', name: ''});
 						var cospos = sinjsx.create('point', [0, 1, singraph], {strokeColor: '#f00', fixed: true, fillColor: '#f00', name: ''});
@@ -171,34 +177,47 @@ require_once('header.php');
 						sinjsx.create('functiongraph', [ function(t) { return Math.cos(t); }, -100, 100],{strokeColor: "#f00"});
 						sinjsx.create('functiongraph', [ function(t) { return Math.tan(t); }, -100, 100],{strokeColor: "#0f0"});
 						var circ = unitjsx.create('circle', [[0, 0], 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
-						var sp = unitjsx.create('point', [1, 0], {size: 0.1, fixed: true, name: ''});
-						var scp = unitjsx.create('point', [0, 0], {size: 0.1, fixed: true, name: ''});
-						var sinline = unitjsx.create('line', [sp, scp], {strokeColor: '#00f', name: 'sin', withLabel: true});
+						var sp = unitjsx.create('point', [1, 0], {visible: false, fixed: true, name: ''});
+						var scp = unitjsx.create('point', [0, 0], {visible: false, fixed: true, name: ''});
+						var sinline = unitjsx.create('line', [sp, scp], {strokeColor: '#00f', name: ''});
+						unitjsx.create('text',[
+							function(){return (sp.X() + scp.X()) * 0.5 + 0.1;},
+							function(){return (sp.Y() + scp.Y()) * 0.5;},
+							'sin']);
 						sinline.setLabelRelativeCoords([3, -35]);
 						sinline.setStraight(false, false);
-						var cosline = unitjsx.create('line', [[0, 0], scp], {strokeColor: '#f00', name: 'cos', withLabel: true});
+						var cosline = unitjsx.create('line', [[0, 0], scp], {strokeColor: '#f00', name: ''});
+						unitjsx.create('text',[
+							function(){return scp.X() * 0.5;},
+							function(){return 0.1;},
+							'cos']);
 						cosline.setStraight(false, false);
 						var unitangle = unitjsx.create('glider', [0.45, 0.45, circ], {strokeColor: 'black', fillColor: 'white', name: ''});
-						var unittan = unitjsx.create('tangent', [unitangle], {strokeColor: '#0f0', name: 'tan', withLabel: true});
+						var unittan = unitjsx.create('tangent', [unitangle], {visible: false});
+						var ax = unitjsx.create('line', [[0, 0], [1, 0]], {visible: false});
+						var tanint = unitjsx.create('intersection', [unittan, ax, 0], {visible: false});
+						var tanline = unitjsx.create('line', [sp, tanint], {strokeColor: '#0f0', name: ''});
+						tanline.setStraight(false, false);
+						unitjsx.create('text',[
+							function(){return (sp.X() + tanint.X()) * 0.5 + 0.1;},
+							function(){return (sp.Y() + tanint.Y()) * 0.5;},
+							'tan']);
 						sp.setPosition(JXG.COORDS_BY_USER, [unitangle.X(), unitangle.Y()]);
 						scp.setPosition(JXG.COORDS_BY_USER, [unitangle.X(), 0]);
 
-						unitjsx.create('text', [0.77, 0.77, "&pi;/4"]);
-						unitjsx.create('text', [-0.05, 1.1, "&pi;/2"]);
-						unitjsx.create('text', [-0.9, 0.78, "3&pi;/4"]);
-						unitjsx.create('text', [-1.1, 0.0, "&pi;"]);
-						unitjsx.create('text', [-0.9, -0.78, "5&pi;/4"]);
-						unitjsx.create('text', [-0.07, -1.15, "3&pi;/2"]);
-						unitjsx.create('text', [0.77, -0.78, "7&pi;/4"]);
-						unitjsx.create('text', [1.1, 0.0, "0 or 2&pi;"]);
+						unitjsx.create('text', [0.77, 0.77, "&pi;/4"], {fixed: true});
+						unitjsx.create('text', [-0.05, 1.1, "&pi;/2"], {fixed: true});
+						unitjsx.create('text', [-0.9, 0.78, "3&pi;/4"], {fixed: true});
+						unitjsx.create('text', [-1.1, 0.0, "&pi;"], {fixed: true});
+						unitjsx.create('text', [-0.9, -0.78, "5&pi;/4"], {fixed: true});
+						unitjsx.create('text', [-0.07, -1.15, "3&pi;/2"], {fixed: true});
+						unitjsx.create('text', [0.77, -0.78, "7&pi;/4"], {fixed: true});
+						unitjsx.create('text', [1.1, 0.0, "0 or 2&pi;"], {fixed: true});
 
 						unitjsx.on('update', function(){
 							rad = Math.acos(unitangle.X());
 							if(unitangle.Y() < 0) {
 								rad = (Math.PI + (Math.PI - rad));
-								sinline.setLabelRelativeCoords([3, 10]);
-							} else {
-								sinline.setLabelRelativeCoords([3, -35]);
 							}
 							unitangle.setLabelText(rad.toFixed(2) + " rad");
 							sinpos.setPosition(JXG.COORDS_BY_USER, [rad, Math.sin(rad)]);
@@ -233,7 +252,7 @@ require_once('header.php');
 					<br />
 
 					<center><div id='circgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="jsx.zoom100(); jsx.moveOrigin(225, 225); ">Reset position</button> <span class='mousepos' id='mousepos'></span></div>
+					<div class='graphcontrols'><button onclick="jsx.zoom100(); jsx.moveOrigin(circox, circoy); ">Reset position</button> <span class='mousepos' id='mousepos'></span></div>
 
 					<br />					
 
@@ -242,6 +261,8 @@ require_once('header.php');
 					<script type='text/javascript'>
 						var jsx = JXG.JSXGraph.initBoard('circgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 						jsx.attr.pan.needShift = true;
+						var circox = jsx.origin.scrCoords[1];
+						var circoy = jsx.origin.scrCoords[2];
 						var r = jsx.createElement('slider', [[-5,5], [4.5,5], [0,1,5]], {name:'r', snapWidth:0.1});
 						var centre = jsx.create('point', [0,0], {strokeColor: 'black', fillColor: 'white', name:''});
 						var circ = jsx.create('circle', [centre, 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
