@@ -15,13 +15,12 @@ JXG.createVector = function (board, parents, attributes) {
 		direction = parents[1],
 		len = parents[2],
 		distance = JXG.Math.Geometry.distance(direction, [0, 0]),
-		lbyd = len/distance,
 		
 		end = board.create('point', [function () {
-				return attach.X() + lbyd*direction[0];
+				return attach.X() + (len.Value()/distance)*direction[0];
 			},
 			function () {
-				return attach.Y() + lbyd*direction[1];
+				return attach.Y() + (len.Value()/distance)*direction[1];
 			}], attr_point),
 		vector = board.create('arrow', [attach, end], attr_vector);
 		

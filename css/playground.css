@@ -15,6 +15,7 @@
 .medgraph {
 	width: 450px;
 	height: 450px;
+	clear: right;
 }
 
 .graphcontrols {
