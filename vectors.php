@@ -15,7 +15,7 @@ require_once('header.php');
 						<li><a href="#scalars">Scalars</a></li>
 						<li><a href="#addition">Addition</a></li>
 						<li><a href="#subtraction">Subtraction</a></li>
-						<li><a href="#dotproduct">Dot Product &amp; Cross Product</a></li>
+						<li><a href="#dotproduct">Dot Product and Cross Product</a></li>
 						<li><a href="#eqline">Equation of a Line</a></li>
 						<li><a href="#eqplane">Equation of a Plane</a></li>
 					</ul>
@@ -48,7 +48,7 @@ require_once('header.php');
 						var slrox = slrjsx.origin.scrCoords[1];
 						var slroy = slrjsx.origin.scrCoords[2];
 
-						var slrscalar = slrjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 4, 10]], {name:'scalar', snapWidth:0.1});
+						var slrscalar = slrjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 4, 8]], {name:'scalar', snapWidth:0.1});
 						var slrp = slrjsx.create('point', [0, 0], {visible: false, fixed: true});
 						var slrv1 = slrjsx.create('vector', [slrp, [0.5, 0.5], slrscalar], {name: 'v1', withLabel: true});
 						var slrv2 = slrjsx.create('vector', [slrp, [0.75, -0.25], slrscalar], {name: 'v2', withLabel: true});
@@ -61,6 +61,39 @@ require_once('header.php');
 					</script>
 
 					<br /><br />
+				</div>
+
+				<div>
+					<h2 id='addition'>Addition</h2>
+
+					<br />
+
+					<p>Drag the ends of the two black vectors to change their direction and magnitude. The blue vector shows the result of adding the two black vectors together.</p>
+
+					<br /><br />
+
+					<center><div id='addgraph' class='jxgbox medgraph'></div></center>
+					<div class='graphcontrols'><button onclick="addjsx.zoom100(); addjsx.moveOrigin(addox, addoy); ">Reset position</button> <span class='mousepos' id='slrmousepos'></span></div>
+
+					<br />
+					
+					<center>
+					</center>
+
+					<br /><br />
+
+					<script type='text/javascript'>
+						var addjsx = JXG.JSXGraph.initBoard('addgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var addox = addjsx.origin.scrCoords[1];
+						var addoy = addjsx.origin.scrCoords[2];
+
+						var addp = addjsx.create('point', [0, 0], {visible: false, fixed: true});
+						var addp1 = addjsx.create('point', [2, 2], {fillColor: 'white', strokeColor: 'black', name: 'v1'});
+						var addv1 = addjsx.create('arrow', [addp, addp1], {strokecolor: 'black', strokeWidth: 3});
+						var addp2 = addjsx.create('point', [2, 6], {fillColor: 'white', strokeColor: 'black', name: 'v2'});
+						var addv2 = addjsx.create('arrow', [addp1, addp2], {strokecolor: 'black', strokeWidth: 3});
+						var addv3 = addjsx.create('arrow', [addp, addp2], {strokecolor: '#44c', strokeWidth: 3});
+					</script>
 				</div>
 			</div>
 		</div>
