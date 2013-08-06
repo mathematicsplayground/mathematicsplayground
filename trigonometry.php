@@ -29,7 +29,7 @@ require_once('header.php');
 					<br /><br />
 
 					<center><div id='radgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(radox, radoy); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span></div>
+					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(radox, radoy); ">Reset position</button> <span class='mousepos' id='radmousepos'></span></div>
 
 					<br />
 					
@@ -70,6 +70,10 @@ require_once('header.php');
 							radangle.setLabelText(rad.toFixed(2) + " rad or " + deg.toFixed(0) + "&deg;");
 							$("#rad").html(rad.toFixed(2) + ' ');
 							$("#deg").html(' ' + deg.toFixed(2));
+						});
+						radjsx.on('mousemove', function(e) {
+							var mPos = radjsx.getUsrCoordsOfMouse(e);
+							$('#radmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 						});
 						radjsx.update();
 					</script>
