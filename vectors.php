@@ -158,7 +158,7 @@ require_once('header.php');
 					<br />
 					
 					<center>
-						$\vec{a}.\vec{b} = $<span id='ascalar'>a</span>$ * $<span id='bscalar'>b</span>$ * cos$<span  id='theta'>&Theta;</span>$ = $ <span id='dotres'>0</span>
+						$\vec{a}.\vec{b} = $<span id='ascalar'>a</span>$ * $<span id='bscalar'>b</span>$ * cos($<span  id='theta'>&Theta;</span>$) = $ <span id='dotres'>0</span>
 					</center>
 
 					<br /><br />
@@ -184,7 +184,7 @@ require_once('header.php');
 						dotjsx.on('update', function() {
 							$("#ascalar").text(' ' + dotv1.L().toFixed(2));
 							$("#bscalar").text(dotv2.L().toFixed(2));
-							$("#theta").text(dotangle.Value().toFixed(2) + ' ');
+							$("#theta").text(dotangle.Value().toFixed(2));
 							dotproduct = dotv1.L() * dotv2.L() * Math.cos(dotangle.Value());
 							$("#dotres").text(' ' + dotproduct.toFixed(2));
 							dist = JXG.Math.Geometry.distance([dotp1.X(), dotp1.Y()], [0, 0]);
