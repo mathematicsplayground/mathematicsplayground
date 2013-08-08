@@ -51,9 +51,9 @@ require_once('header.php');
 
 						var slrscalar = slrjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [-8, 4, 8]], {name:'scalar', snapWidth:0.1});
 						var slrp = slrjsx.create('point', [0, 0], {visible: false, fixed: true});
-						var slrv1 = slrjsx.create('vector', [slrp, [-0.75, 0.25], slrscalar], {name: 'v1', withLabel: true});
-						var slrv2 = slrjsx.create('vector', [slrp, [0.75, -0.25], slrscalar], {name: 'v2', withLabel: true});
-						var slrv3 = slrjsx.create('vector', [slrp, [0.25, 0.75], slrscalar], {name: 'v3', withLabel: true});
+						var slrv1 = slrjsx.create('vector', [slrp, [-0.75, 0.25], slrscalar], {point: {name: 'v1', withLabel: true}});
+						var slrv2 = slrjsx.create('vector', [slrp, [0.75, -0.25], slrscalar], {point: {name: 'v2', withLabel: true}});
+						var slrv3 = slrjsx.create('vector', [slrp, [0.25, 0.75], slrscalar], {point: {name: 'v3', withLabel: true}});
 
 						slrjsx.on('update', function() {
 							$("#s1,#s2,#s3").html(' ' + slrscalar.Value().toFixed(2));
@@ -98,6 +98,11 @@ require_once('header.php');
 						var addp2 = addjsx.create('point', [2, 6], {fillColor: 'white', strokeColor: 'black', name: 'v2'});
 						var addv2 = addjsx.create('arrow', [addp1, addp2], {strokecolor: 'black', strokeWidth: 3});
 						var addv3 = addjsx.create('arrow', [addp, addp2], {strokecolor: '#44c', strokeWidth: 3});
+						addjsx.create('text',[
+							function(){return (addp.X() + addp2.X()) * 0.5 - 2;},
+							function(){return (addp.Y() + addp2.Y()) * 0.5;},
+							'v1 + v2']
+						);
 						addjsx.on('mousemove', function(e) {
 							var mPos = addjsx.getUsrCoordsOfMouse(e);
 							$('#addmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
@@ -134,6 +139,11 @@ require_once('header.php');
 						var subp2 = subjsx.create('point', [1, 4], {fillColor: 'white', strokeColor: 'black', name: 'v2'});
 						var subv2 = subjsx.create('arrow', [subp, subp2], {strokecolor: 'black', strokeWidth: 3});
 						var subv3 = subjsx.create('arrow', [subp1, subp2], {strokecolor: '#4c4', strokeWidth: 3});
+						subjsx.create('text',[
+							function(){return (subp1.X() + subp2.X()) * 0.5 + 0.5;},
+							function(){return (subp1.Y() + subp2.Y()) * 0.5;},
+							'v1 - v2']
+						);
 						subjsx.on('mousemove', function(e) {
 							var mPos = subjsx.getUsrCoordsOfMouse(e);
 							$('#submousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));

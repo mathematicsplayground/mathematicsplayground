@@ -2,7 +2,10 @@ JXG.Options.vector = {
 	strokeColor: 'black',
 	strokeWidth: 3,
 	point: {
-		visible: false,
+		visible: true,
+		size: 0.1,
+		strokeColor: 'black',
+		fillColor: 'black',
 		name: '',
 		withLabel: false
 	}
