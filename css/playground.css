@@ -38,3 +38,52 @@ label {
 input {
 	margin-top: 0px !important;
 }
+
+.operator {
+	font-family: Serif;
+	line-height: 1.5em;
+	font-size: 14pt;
+	float: left;
+	padding: 1em;
+}
+
+.matrix {
+	font-family: Serif;
+	line-height: 1.5em;
+	font-size: 14pt;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	float: left;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-bottom: 1em;
+}
+
+.matrixtop {
+	border-top: 2px solid black;
+	width: 4px;
+}
+
+.matrixbottom {
+	border-bottom: 2px solid black;
+	width: 4px;
+}
+
+.matrixnum {
+	font-family: Serif;
+	font-size: 14pt !important;
+	width: 2em;
+	border: none !important;
+	background: none !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+}
+
+.matrixresult {
+	height: 22px;
+	padding: 4px 6px;
+	margin-bottom: 10px;
+	color: #555;
+	vertical-align: middle;
+}
