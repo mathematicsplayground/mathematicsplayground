@@ -51,9 +51,9 @@ require_once('header.php');
 
 						var slrscalar = slrjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [-8, 4, 8]], {name:'scalar', snapWidth:0.1});
 						var slrp = slrjsx.create('point', [0, 0], {visible: false, fixed: true});
-						var slrv1 = slrjsx.create('vector', [slrp, [-0.75, 0.25], slrscalar], {point: {name: 'v1', withLabel: true}});
-						var slrv2 = slrjsx.create('vector', [slrp, [0.75, -0.25], slrscalar], {point: {name: 'v2', withLabel: true}});
-						var slrv3 = slrjsx.create('vector', [slrp, [0.25, 0.75], slrscalar], {point: {name: 'v3', withLabel: true}});
+						var slrv1 = slrjsx.create('vector', [slrp, [-0.75, 0.25], slrscalar], {strokeColor: '#44f', point: {strokeColor: '#44f', name: 'v1', withLabel: true}});
+						var slrv2 = slrjsx.create('vector', [slrp, [0.75, -0.25], slrscalar], {strokeColor: '#4f4', point: {strokeColor: '#4f4', name: 'v2', withLabel: true}});
+						var slrv3 = slrjsx.create('vector', [slrp, [0.25, 0.75], slrscalar], {strokeColor: '#f44', point: {strokeColor: '#f44', name: 'v3', withLabel: true}});
 
 						slrjsx.on('update', function() {
 							$("#s1,#s2,#s3").html(' ' + slrscalar.Value().toFixed(2));
@@ -114,7 +114,7 @@ require_once('header.php');
 
 					<br />
 
-					<p>Drag the ends of the two black vectors to change their direction and magnitude. The green vector shows the result of subtracting v2 from v1.</p>
+					<p>Drag the ends of the two black vectors to change their direction and magnitude. The green vector shows the result of subtracting v1 from v2.</p>
 
 					<br /><br />
 
@@ -142,7 +142,7 @@ require_once('header.php');
 						subjsx.create('text',[
 							function(){return (subp1.X() + subp2.X()) * 0.5 + 0.5;},
 							function(){return (subp1.Y() + subp2.Y()) * 0.5;},
-							'v1 - v2']
+							'v2 - v1']
 						);
 						subjsx.on('mousemove', function(e) {
 							var mPos = subjsx.getUsrCoordsOfMouse(e);
@@ -238,13 +238,13 @@ require_once('header.php');
 						var lineslr = linejsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [-4, 0.5, 4]], {name: 't', snapWidth: 0.1});
 						var linep = linejsx.create('point', [0, 0], {visible: false, fixed: true});
 						var linep1 = linejsx.create('point', [1, 4], {fillColor: 'white', strokeColor: 'black', name: 'a'});
-						var linev1 = linejsx.create('arrow', [linep, linep1], {strokecolor: 'black', strokeWidth: 3});
+						var linev1 = linejsx.create('arrow', [linep, linep1], {strokecolor: 'black', strokeWidth: 3, fixed: true});
 						var linep2 = linejsx.create('point', [3, 2], {fillColor: 'white', strokeColor: 'black', name: 'd'});
-						var linev2 = linejsx.create('arrow', [linep1, linep2], {strokecolor: 'black', strokeWidth: 3});
+						var linev2 = linejsx.create('arrow', [linep1, linep2], {strokecolor: 'black', strokeWidth: 3, fixed: true});
 						var liner = linejsx.create('point', [3, 2], {fillColor: 'red', strokeColor: 'red', name: 'r', fixed: true});
 						liner.setPosition(JXG.COORDS_BY_USER, [linep1.X() + lineslr.Value() * (linep2.X() - linep1.X()), linep1.Y() + lineslr.Value() * (linep2.Y() - linep1.Y())]);
 						var linevr = linejsx.create('arrow', [linep, liner], {strokecolor: 'black', strokeWidth: 3});
-						var linel = linejsx.create('line', [linep1, linep2], {strokecolor: '#c44', strokeWidth: 1});
+						var linel = linejsx.create('line', [linep1, linep2], {strokecolor: '#c44', strokeWidth: 1, fixed: true});
 						linejsx.on('update', function() {
 							liner.setPosition(JXG.COORDS_BY_USER, [linep1.X() + lineslr.Value() * (linep2.X() - linep1.X()), linep1.Y() + lineslr.Value() * (linep2.Y() - linep1.Y())]);
 						});
