@@ -73,6 +73,7 @@ input {
 	font-family: Serif;
 	font-size: 14pt !important;
 	width: 2em;
+	text-align: center;
 	border: none !important;
 	background: none !important;
 	box-shadow: none !important;
@@ -87,3 +88,12 @@ input {
 	color: #555;
 	vertical-align: middle;
 }
+
+.leftc {
+	color: #f44 !important;
+}
+
+.rightc {
+	color: #44f !important;
+}
+
