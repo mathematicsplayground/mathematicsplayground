@@ -192,6 +192,122 @@ require_once('header.php');
 						}
 					</script>
 				</div>
+
+				<div style='clear: both;'>
+					<h2 id='rotation'>Rotation</h2>
+
+					<br />
+
+					<p>The graph below shows four vectors which are being rotated by the matrix on the left. Drag the black and white point to change the angle of ration, observing the changes to the matrix and the vectors. Selecting the <em>"Apply to image"</em> option will cause this matrix transformation to be applied to an image.</p>
+
+					<br /><br />
+
+					<div style='margin-left: 0em; margin-right: 0.5em; margin-top: 150px; float: left;'>
+					<table class='matrix'>
+						<tr>
+							<td class='matrixtop'></td>
+							<td>cos(<span id='m3a1t' class='matrixresult'>0.00</span>)</td>
+							<td>-sin(<span id='m3a2t' class='matrixresult'>0.00</span>)</td>
+							<td class='matrixtop'></td>
+						</tr>
+						<tr>
+							<td class='matrixbottom'></td>
+							<td>sin(<span id='m3b1t' class='matrixresult'>0.00</span>)</td>
+							<td>cos(<span id='m3b2t' class='matrixresult'>0.00</span>)</td>
+							<td class='matrixbottom'></td>
+						</tr>
+					</table> <br />
+
+					<div class="operator">
+					=
+					</div>
+
+					<table class='matrix'>
+						<tr>
+							<td class='matrixtop'></td>
+							<td><span id='m3a1' class='matrixresult'>0.00</span></td>
+							<td><span id='m3a2' class='matrixresult'>0.00</span></td>
+							<td class='matrixtop'></td>
+						</tr>
+						<tr>
+							<td class='matrixbottom'></td>
+							<td><span id='m3b1' class='matrixresult'>0.00</span></td>
+							<td><span id='m3b2' class='matrixresult'>0.00</span></td>				
+							<td class='matrixbottom'></td>
+						</tr>
+					</table>
+					</div>
+
+					<div class="operator" style='margin-top: 200px;'>
+					*
+					</div>
+
+					<div style='float: right;'>
+					<div id='rotgraph' class='jxgbox medgraph'></div>
+					<div class='graphcontrols' style='left: -123px;'><button onclick="rotjsx.zoom100(); rotjsx.moveOrigin(rotox, rotoy); ">Reset position</button> <span class='mousepos' id='rotmousepos'></span><br /><br /><input type='checkbox' id='applytoimage3' onclick='applyToImage3();' /><label for='applytoimage3'>Apply to image</label></div>
+					</div>
+
+                                        <br />
+
+                                        <center>
+                                        </center>
+
+                                        <br /><br />
+
+                                        <script type='text/javascript'>
+                                                var rotjsx = JXG.JSXGraph.initBoard('rotgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+                                                var rotox = rotjsx.origin.scrCoords[1];
+						var rotoy = rotjsx.origin.scrCoords[2];
+
+						var rotcirc = rotjsx.create('circle', [[0, 0], 5], {fixed: true, visible: false});
+						var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: ''});
+						var roto = rotjsx.create('point', [0, 0], {fixed: true, visible: false});
+						var rot5 = rotjsx.create('point', [5, 0], {fixed: true, visible: false});
+						var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, name: '0.00'});
+						var rotp1 = rotjsx.create('point', [1, 1], {fixed: true, visible: false});
+						var rotv1 = rotjsx.create('arrow', [[0, 0], rotp1], {fixed: true, strokeColor: '#555'});
+						var rotp2 = rotjsx.create('point', [1, 3], {fixed: true, visible: false});
+						var rotv2 = rotjsx.create('arrow', [[0, 0], rotp2], {fixed: true, strokeColor: '#555'});
+						var rotp3 = rotjsx.create('point', [4, 1], {fixed: true, visible: false});
+						var rotv3 = rotjsx.create('arrow', [[0, 0], rotp3], {fixed: true, strokeColor: '#555'});
+						var rotp4 = rotjsx.create('point', [4, 3], {fixed: true, visible: false});
+						var rotv4 = rotjsx.create('arrow', [[0, 0], rotp4], {fixed: true, strokeColor: '#555'});
+						var rotimg = rotjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
+						var rotrotate = rotjsx.create('transform', [
+							function() {return rotangle.Value();},
+							roto], {type:'rotate'});
+						rotrotate.bindTo(rotp1);
+						rotrotate.bindTo(rotp2);
+						rotrotate.bindTo(rotp3);
+						rotrotate.bindTo(rotp4);
+						rotrotate.bindTo(rotimg);
+
+                                                rotjsx.on('mousemove', function(e) {
+                                                        var mPos = rotjsx.getUsrCoordsOfMouse(e);
+                                                        $('#rotmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+						});
+
+						rotjsx.on('update', function() {
+							$("#m3a1t").text(rotangle.Value().toFixed(2));
+							$("#m3a2t").text(rotangle.Value().toFixed(2));
+							$("#m3b1t").text(rotangle.Value().toFixed(2));
+							$("#m3b2t").text(rotangle.Value().toFixed(2));
+							$("#m3a1").text(Math.cos(rotangle.Value()).toFixed(2));
+							$("#m3a2").text(-Math.sin(rotangle.Value()).toFixed(2));
+							$("#m3b1").text(Math.sin(rotangle.Value()).toFixed(2));
+							$("#m3b2").text(Math.cos(rotangle.Value()).toFixed(2));
+							rotangle.setLabelText(rotangle.Value().toFixed(2));
+						});
+
+						function applyToImage3() {
+							if($("#applytoimage3").is(':checked')) {
+								rotimg.showElement();
+							} else {
+								rotimg.hideElement();
+							}
+						}
+					</script>
+				</div>
 			</div>
 		</div>
 	</body>

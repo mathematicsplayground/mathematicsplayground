@@ -393,7 +393,7 @@ require_once('header.php');
 						</tr>
 					</table>
 
-					<div class="operator" style='clear: left; margin-left: 10em;'>
+					<div class="operator" style='clear: left; margin-left: 5.5em;'>
 						=
 					</div>
 
@@ -411,7 +411,7 @@ require_once('header.php');
 							<td class='matrixbottom'></td>
 						</tr>
 					</table>
-					<div class="operator" style='clear: left; margin-left: 10em;'>
+					<div class="operator" style='clear: left; margin-left: 13em;'>
 						=
 					</div>
 
