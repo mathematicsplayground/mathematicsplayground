@@ -51,16 +51,16 @@ require_once('header.php');
 					<div class='graphcontrols' style='left: -123px;'><button onclick="scalejsx.zoom100(); scalejsx.moveOrigin(scaleox, scaleoy); ">Reset position</button> <span class='mousepos' id='scalemousepos'></span><br /><br /><input type='checkbox' id='applytoimage1' onclick='applyToImage1();' /><label for='applytoimage1'>Apply to image</label></div>
 					</div>
 
-                                        <br />
+					<br />
 
-                                        <center>
-                                        </center>
+					<center>
+					</center>
 
-                                        <br /><br />
+					<br /><br />
 
-                                        <script type='text/javascript'>
-                                                var scalejsx = JXG.JSXGraph.initBoard('scalegraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-                                                var scaleox = scalejsx.origin.scrCoords[1];
+					<script type='text/javascript'>
+						var scalejsx = JXG.JSXGraph.initBoard('scalegraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var scaleox = scalejsx.origin.scrCoords[1];
 						var scaleoy = scalejsx.origin.scrCoords[2];
 
 						var scales = scalejsx.createElement('slider', [[-9,9], [5,9], [-2.5,1,2.5]], {name:'scale', snapWidth:0.1});
@@ -86,9 +86,9 @@ require_once('header.php');
 							function() {return scales.Value();}], {type:'scale'}); 
 						scaletransform.bindTo(scaleimg);
 
-                                                scalejsx.on('mousemove', function(e) {
-                                                        var mPos = scalejsx.getUsrCoordsOfMouse(e);
-                                                        $('#scalemousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+						scalejsx.on('mousemove', function(e) {
+							var mPos = scalejsx.getUsrCoordsOfMouse(e);
+							$('#scalemousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 						});
 
 						scalejsx.on('update', function() {
@@ -103,7 +103,7 @@ require_once('header.php');
 								scaleimg.hideElement();
 							}
 						}
-                                        </script>
+					</script>
 				</div>
 
 				<div style='clear: both;'>
@@ -137,16 +137,16 @@ require_once('header.php');
 					<div class='graphcontrols' style='left: -123px;'><button onclick="transjsx.zoom100(); transjsx.moveOrigin(transox, transoy); ">Reset position</button> <span class='mousepos' id='transmousepos'></span><br /><br /><input type='checkbox' id='applytoimage2' onclick='applyToImage2();' /><label for='applytoimage2'>Apply to image</label></div>
 					</div>
 
-                                        <br />
+					<br />
 
-                                        <center>
-                                        </center>
+					<center>
+					</center>
 
-                                        <br /><br />
+					<br /><br />
 
-                                        <script type='text/javascript'>
-                                                var transjsx = JXG.JSXGraph.initBoard('transgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-                                                var transox = transjsx.origin.scrCoords[1];
+					<script type='text/javascript'>
+						var transjsx = JXG.JSXGraph.initBoard('transgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var transox = transjsx.origin.scrCoords[1];
 						var transoy = transjsx.origin.scrCoords[2];
 
 						var transx = transjsx.createElement('slider', [[-8,9], [7,9], [-8,0,7]], {name:'X', snapWidth:0.1});
@@ -173,9 +173,9 @@ require_once('header.php');
 							function() {return transy.Value();}], {type:'translate'});
 						transtransform.bindTo(transimg);
 
-                                                transjsx.on('mousemove', function(e) {
-                                                        var mPos = transjsx.getUsrCoordsOfMouse(e);
-                                                        $('#transmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+						transjsx.on('mousemove', function(e) {
+							var mPos = transjsx.getUsrCoordsOfMouse(e);
+							$('#transmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 						});
 
 						transjsx.on('update', function() {
@@ -247,23 +247,23 @@ require_once('header.php');
 					<div class='graphcontrols' style='left: -123px;'><button onclick="rotjsx.zoom100(); rotjsx.moveOrigin(rotox, rotoy); ">Reset position</button> <span class='mousepos' id='rotmousepos'></span><br /><br /><input type='checkbox' id='applytoimage3' onclick='applyToImage3();' /><label for='applytoimage3'>Apply to image</label></div>
 					</div>
 
-                                        <br />
+					<br />
 
-                                        <center>
-                                        </center>
+					<center>
+					</center>
 
-                                        <br /><br />
+					<br /><br />
 
-                                        <script type='text/javascript'>
-                                                var rotjsx = JXG.JSXGraph.initBoard('rotgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-                                                var rotox = rotjsx.origin.scrCoords[1];
+					<script type='text/javascript'>
+						var rotjsx = JXG.JSXGraph.initBoard('rotgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+						var rotox = rotjsx.origin.scrCoords[1];
 						var rotoy = rotjsx.origin.scrCoords[2];
 
 						var rotcirc = rotjsx.create('circle', [[0, 0], 5], {fixed: true, visible: false});
-						var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: ''});
+						var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: '0.00'});
 						var roto = rotjsx.create('point', [0, 0], {fixed: true, visible: false});
 						var rot5 = rotjsx.create('point', [5, 0], {fixed: true, visible: false});
-						var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, name: '0.00'});
+						var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, withLabel: false});
 						var rotp1 = rotjsx.create('point', [1, 1], {fixed: true, visible: false});
 						var rotv1 = rotjsx.create('arrow', [[0, 0], rotp1], {fixed: true, strokeColor: '#555'});
 						var rotp2 = rotjsx.create('point', [1, 3], {fixed: true, visible: false});
@@ -282,9 +282,9 @@ require_once('header.php');
 						rotrotate.bindTo(rotp4);
 						rotrotate.bindTo(rotimg);
 
-                                                rotjsx.on('mousemove', function(e) {
-                                                        var mPos = rotjsx.getUsrCoordsOfMouse(e);
-                                                        $('#rotmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+						rotjsx.on('mousemove', function(e) {
+							var mPos = rotjsx.getUsrCoordsOfMouse(e);
+							$('#rotmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 						});
 
 						rotjsx.on('update', function() {
@@ -296,7 +296,7 @@ require_once('header.php');
 							$("#m3a2").text(-Math.sin(rotangle.Value()).toFixed(2));
 							$("#m3b1").text(Math.sin(rotangle.Value()).toFixed(2));
 							$("#m3b2").text(Math.cos(rotangle.Value()).toFixed(2));
-							rotangle.setLabelText(rotangle.Value().toFixed(2));
+							rotg.setLabelText(rotangle.Value().toFixed(2));
 						});
 
 						function applyToImage3() {
