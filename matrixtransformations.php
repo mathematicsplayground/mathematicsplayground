@@ -48,7 +48,7 @@ require_once('header.php');
 
 					<div style='float: right;'>
 					<div id='scalegraph' class='jxgbox medgraph'></div>
-					<div class='graphcontrols' style='left: -123px;'><button onclick="scalejsx.zoom100(); scalejsx.moveOrigin(scaleox, scaleoy); ">Reset position</button> <span class='mousepos' id='scalemousepos'></span><br /><br /><input type='checkbox' id='applytoimage1' onclick='applyToImage1();' /><label for='applytoimage1'>Apply to image</label></div>
+					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(scalejsx); initScale();">Reset positions</button> <span class='mousepos' id='scalemousepos'></span><br /><br /><input type='checkbox' id='applytoimage1' onclick='applyToImage1();' /><label for='applytoimage1'>Apply to image</label></div>
 					</div>
 
 					<br />
@@ -59,42 +59,45 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						var scalejsx = JXG.JSXGraph.initBoard('scalegraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var scaleox = scalejsx.origin.scrCoords[1];
-						var scaleoy = scalejsx.origin.scrCoords[2];
+						function initScale() {
+							scalejsx = JXG.JSXGraph.initBoard('scalegraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
-						var scales = scalejsx.createElement('slider', [[-9,9], [5,9], [-2.5,1,2.5]], {name:'scale', snapWidth:0.1});
-						var scalep1 = scalejsx.create('point', [
-							function() {return scales.Value() * 1},
-							function() {return scales.Value() * 1}], {fixed: true, visible: false});
-						var scalev1 = scalejsx.create('arrow', [[0, 0], scalep1], {fixed: true, strokeColor: '#555'});
-						var scalep2 = scalejsx.create('point', [
-							function() {return scales.Value() * 1},
-							function() {return scales.Value() * 3}], {fixed: true, visible: false});
-						var scalev2 = scalejsx.create('arrow', [[0, 0], scalep2], {fixed: true, strokeColor: '#555'});
-						var scalep3 = scalejsx.create('point', [
-							function() {return scales.Value() * 4},
-							function() {return scales.Value() * 1}], {fixed: true, visible: false});
-						var scalev3 = scalejsx.create('arrow', [[0, 0], scalep3], {fixed: true, strokeColor: '#555'});
-						var scalep4 = scalejsx.create('point', [
-							function() {return scales.Value() * 4},
-							function() {return scales.Value() * 3}], {fixed: true, visible: false});
-						var scalev4 = scalejsx.create('arrow', [[0, 0], scalep4], {fixed: true, strokeColor: '#555'});
-						var scaleimg = scalejsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
-						var scaletransform = scalejsx.create('transform', [
-							function() {return scales.Value();},
-							function() {return scales.Value();}], {type:'scale'}); 
-						scaletransform.bindTo(scaleimg);
+							var scales = scalejsx.createElement('slider', [[-9,9], [5,9], [-2.5,1,2.5]], {name:'scale', snapWidth:0.1});
+							var scalep1 = scalejsx.create('point', [
+								function() {return scales.Value() * 1},
+								function() {return scales.Value() * 1}], {fixed: true, visible: false});
+							var scalev1 = scalejsx.create('arrow', [[0, 0], scalep1], {fixed: true, strokeColor: '#555'});
+							var scalep2 = scalejsx.create('point', [
+								function() {return scales.Value() * 1},
+								function() {return scales.Value() * 3}], {fixed: true, visible: false});
+							var scalev2 = scalejsx.create('arrow', [[0, 0], scalep2], {fixed: true, strokeColor: '#555'});
+							var scalep3 = scalejsx.create('point', [
+								function() {return scales.Value() * 4},
+								function() {return scales.Value() * 1}], {fixed: true, visible: false});
+							var scalev3 = scalejsx.create('arrow', [[0, 0], scalep3], {fixed: true, strokeColor: '#555'});
+							var scalep4 = scalejsx.create('point', [
+								function() {return scales.Value() * 4},
+								function() {return scales.Value() * 3}], {fixed: true, visible: false});
+							var scalev4 = scalejsx.create('arrow', [[0, 0], scalep4], {fixed: true, strokeColor: '#555'});
+							scaleimg = scalejsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
+							var scaletransform = scalejsx.create('transform', [
+								function() {return scales.Value();},
+								function() {return scales.Value();}], {type:'scale'}); 
+							scaletransform.bindTo(scaleimg);
 
-						scalejsx.on('mousemove', function(e) {
-							var mPos = scalejsx.getUsrCoordsOfMouse(e);
-							$('#scalemousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
+							$("#applytoimage1").attr("checked", false);
 
-						scalejsx.on('update', function() {
-							$("#m1a1").text(scales.Value().toFixed(2));
-							$("#m1b2").text(scales.Value().toFixed(2));
-						});
+							scalejsx.on('mousemove', function(e) {
+								var mPos = scalejsx.getUsrCoordsOfMouse(e);
+								$('#scalemousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							scalejsx.on('update', function() {
+								$("#m1a1").text(scales.Value().toFixed(2));
+								$("#m1b2").text(scales.Value().toFixed(2));
+							});
+							scalejsx.update();
+						}
 
 						function applyToImage1() {
 							if($("#applytoimage1").is(':checked')) {
@@ -103,6 +106,8 @@ require_once('header.php');
 								scaleimg.hideElement();
 							}
 						}
+
+						initScale();
 					</script>
 				</div>
 
@@ -134,7 +139,7 @@ require_once('header.php');
 
 					<div style='float: right;'>
 					<div id='transgraph' class='jxgbox medgraph'></div>
-					<div class='graphcontrols' style='left: -123px;'><button onclick="transjsx.zoom100(); transjsx.moveOrigin(transox, transoy); ">Reset position</button> <span class='mousepos' id='transmousepos'></span><br /><br /><input type='checkbox' id='applytoimage2' onclick='applyToImage2();' /><label for='applytoimage2'>Apply to image</label></div>
+					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(transjsx); initTrans();">Reset positions</button> <span class='mousepos' id='transmousepos'></span><br /><br /><input type='checkbox' id='applytoimage2' onclick='applyToImage2();' /><label for='applytoimage2'>Apply to image</label></div>
 					</div>
 
 					<br />
@@ -145,43 +150,47 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						var transjsx = JXG.JSXGraph.initBoard('transgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var transox = transjsx.origin.scrCoords[1];
-						var transoy = transjsx.origin.scrCoords[2];
+						function initTrans() {
+							transjsx = JXG.JSXGraph.initBoard('transgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
-						var transx = transjsx.createElement('slider', [[-8,9], [7,9], [-8,0,7]], {name:'X', snapWidth:0.1});
-						var transy = transjsx.createElement('slider', [[-9,8], [-9,-7], [8,0,-7]], {name:'Y', snapWidth:0.1});
-						var transp1 = transjsx.create('point', [
-							function() {return transx.Value() + 1},
-							function() {return transy.Value() + 1}], {fixed: true, visible: false});
-						var transv1 = transjsx.create('arrow', [[0, 0], transp1], {fixed: true, strokeColor: '#555'});
-						var transp2 = transjsx.create('point', [
-							function() {return transx.Value() + 1},
-							function() {return transy.Value() + 3}], {fixed: true, visible: false});
-						var transv2 = transjsx.create('arrow', [[0, 0], transp2], {fixed: true, strokeColor: '#555'});
-						var transp3 = transjsx.create('point', [
-							function() {return transx.Value() + 4},
-							function() {return transy.Value() + 1}], {fixed: true, visible: false});
-						var transv3 = transjsx.create('arrow', [[0, 0], transp3], {fixed: true, strokeColor: '#555'});
-						var transp4 = transjsx.create('point', [
-							function() {return transx.Value() + 4},
-							function() {return transy.Value() + 3}], {fixed: true, visible: false});
-						var transv4 = transjsx.create('arrow', [[0, 0], transp4], {fixed: true, strokeColor: '#555'});
-						var transimg = transjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
-						var transtransform = transjsx.create('transform', [
-							function() {return transx.Value();},
-							function() {return transy.Value();}], {type:'translate'});
-						transtransform.bindTo(transimg);
+							var transx = transjsx.createElement('slider', [[-8,9], [7,9], [-8,0,7]], {name:'X', snapWidth:0.1});
+							var transy = transjsx.createElement('slider', [[-9,8], [-9,-7], [8,0,-7]], {name:'Y', snapWidth:0.1});
+							var transp1 = transjsx.create('point', [
+								function() {return transx.Value() + 1},
+								function() {return transy.Value() + 1}], {fixed: true, visible: false});
+							var transv1 = transjsx.create('arrow', [[0, 0], transp1], {fixed: true, strokeColor: '#555'});
+							var transp2 = transjsx.create('point', [
+								function() {return transx.Value() + 1},
+								function() {return transy.Value() + 3}], {fixed: true, visible: false});
+							var transv2 = transjsx.create('arrow', [[0, 0], transp2], {fixed: true, strokeColor: '#555'});
+							var transp3 = transjsx.create('point', [
+								function() {return transx.Value() + 4},
+								function() {return transy.Value() + 1}], {fixed: true, visible: false});
+							var transv3 = transjsx.create('arrow', [[0, 0], transp3], {fixed: true, strokeColor: '#555'});
+							var transp4 = transjsx.create('point', [
+								function() {return transx.Value() + 4},
+								function() {return transy.Value() + 3}], {fixed: true, visible: false});
+							var transv4 = transjsx.create('arrow', [[0, 0], transp4], {fixed: true, strokeColor: '#555'});
+							transimg = transjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
+							var transtransform = transjsx.create('transform', [
+								function() {return transx.Value();},
+								function() {return transy.Value();}], {type:'translate'});
+							transtransform.bindTo(transimg);
 
-						transjsx.on('mousemove', function(e) {
-							var mPos = transjsx.getUsrCoordsOfMouse(e);
-							$('#transmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
+							$("#applytoimage2").attr("checked", false);
 
-						transjsx.on('update', function() {
-							$("#m2a1").text(transx.Value().toFixed(2));
-							$("#m2b1").text(transy.Value().toFixed(2));
-						});
+							transjsx.on('mousemove', function(e) {
+								var mPos = transjsx.getUsrCoordsOfMouse(e);
+								$('#transmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							transjsx.on('update', function() {
+								$("#m2a1").text(transx.Value().toFixed(2));
+								$("#m2b1").text(transy.Value().toFixed(2));
+							});
+
+							transjsx.update();
+						}
 
 						function applyToImage2() {
 							if($("#applytoimage2").is(':checked')) {
@@ -190,6 +199,8 @@ require_once('header.php');
 								transimg.hideElement();
 							}
 						}
+
+						initTrans();
 					</script>
 				</div>
 
@@ -198,7 +209,7 @@ require_once('header.php');
 
 					<br />
 
-					<p>The graph below shows four vectors which are being rotated by the matrix on the left. Drag the black and white point to change the angle of ration, observing the changes to the matrix and the vectors. Selecting the <em>"Apply to image"</em> option will cause this matrix transformation to be applied to an image.</p>
+					<p>The graph below shows four vectors which are being rotated by the matrix on the left. Drag the black and white point to change the angle of rotation, observing the changes to the matrix and the vectors. Selecting the <em>"Apply to image"</em> option will cause this matrix transformation to be applied to an image.</p>
 
 					<br /><br />
 
@@ -244,7 +255,7 @@ require_once('header.php');
 
 					<div style='float: right;'>
 					<div id='rotgraph' class='jxgbox medgraph'></div>
-					<div class='graphcontrols' style='left: -123px;'><button onclick="rotjsx.zoom100(); rotjsx.moveOrigin(rotox, rotoy); ">Reset position</button> <span class='mousepos' id='rotmousepos'></span><br /><br /><input type='checkbox' id='applytoimage3' onclick='applyToImage3();' /><label for='applytoimage3'>Apply to image</label></div>
+					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(rotjsx); initRot();">Reset positions</button> <span class='mousepos' id='rotmousepos'></span><br /><br /><input type='checkbox' id='applytoimage3' onclick='applyToImage3();' /><label for='applytoimage3'>Apply to image</label></div>
 					</div>
 
 					<br />
@@ -255,49 +266,53 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						var rotjsx = JXG.JSXGraph.initBoard('rotgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var rotox = rotjsx.origin.scrCoords[1];
-						var rotoy = rotjsx.origin.scrCoords[2];
+						function initRot() {
+							rotjsx = JXG.JSXGraph.initBoard('rotgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
-						var rotcirc = rotjsx.create('circle', [[0, 0], 5], {fixed: true, visible: false});
-						var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: '0.00'});
-						var roto = rotjsx.create('point', [0, 0], {fixed: true, visible: false});
-						var rot5 = rotjsx.create('point', [5, 0], {fixed: true, visible: false});
-						var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, withLabel: false});
-						var rotp1 = rotjsx.create('point', [1, 1], {fixed: true, visible: false});
-						var rotv1 = rotjsx.create('arrow', [[0, 0], rotp1], {fixed: true, strokeColor: '#555'});
-						var rotp2 = rotjsx.create('point', [1, 3], {fixed: true, visible: false});
-						var rotv2 = rotjsx.create('arrow', [[0, 0], rotp2], {fixed: true, strokeColor: '#555'});
-						var rotp3 = rotjsx.create('point', [4, 1], {fixed: true, visible: false});
-						var rotv3 = rotjsx.create('arrow', [[0, 0], rotp3], {fixed: true, strokeColor: '#555'});
-						var rotp4 = rotjsx.create('point', [4, 3], {fixed: true, visible: false});
-						var rotv4 = rotjsx.create('arrow', [[0, 0], rotp4], {fixed: true, strokeColor: '#555'});
-						var rotimg = rotjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
-						var rotrotate = rotjsx.create('transform', [
-							function() {return rotangle.Value();},
-							roto], {type:'rotate'});
-						rotrotate.bindTo(rotp1);
-						rotrotate.bindTo(rotp2);
-						rotrotate.bindTo(rotp3);
-						rotrotate.bindTo(rotp4);
-						rotrotate.bindTo(rotimg);
+							var rotcirc = rotjsx.create('circle', [[0, 0], 5], {fixed: true, visible: false});
+							var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: '0.00'});
+							var roto = rotjsx.create('point', [0, 0], {fixed: true, visible: false});
+							var rot5 = rotjsx.create('point', [5, 0], {fixed: true, visible: false});
+							var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, withLabel: false});
+							var rotp1 = rotjsx.create('point', [1, 1], {fixed: true, visible: false});
+							var rotv1 = rotjsx.create('arrow', [[0, 0], rotp1], {fixed: true, strokeColor: '#555'});
+							var rotp2 = rotjsx.create('point', [1, 3], {fixed: true, visible: false});
+							var rotv2 = rotjsx.create('arrow', [[0, 0], rotp2], {fixed: true, strokeColor: '#555'});
+							var rotp3 = rotjsx.create('point', [4, 1], {fixed: true, visible: false});
+							var rotv3 = rotjsx.create('arrow', [[0, 0], rotp3], {fixed: true, strokeColor: '#555'});
+							var rotp4 = rotjsx.create('point', [4, 3], {fixed: true, visible: false});
+							var rotv4 = rotjsx.create('arrow', [[0, 0], rotp4], {fixed: true, strokeColor: '#555'});
+							rotimg = rotjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
+							var rotrotate = rotjsx.create('transform', [
+								function() {return rotangle.Value();},
+								roto], {type:'rotate'});
+							rotrotate.bindTo(rotp1);
+							rotrotate.bindTo(rotp2);
+							rotrotate.bindTo(rotp3);
+							rotrotate.bindTo(rotp4);
+							rotrotate.bindTo(rotimg);
 
-						rotjsx.on('mousemove', function(e) {
-							var mPos = rotjsx.getUsrCoordsOfMouse(e);
-							$('#rotmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
+							$("#applytoimage3").attr("checked", false);
 
-						rotjsx.on('update', function() {
-							$("#m3a1t").text(rotangle.Value().toFixed(2));
-							$("#m3a2t").text(rotangle.Value().toFixed(2));
-							$("#m3b1t").text(rotangle.Value().toFixed(2));
-							$("#m3b2t").text(rotangle.Value().toFixed(2));
-							$("#m3a1").text(Math.cos(rotangle.Value()).toFixed(2));
-							$("#m3a2").text(-Math.sin(rotangle.Value()).toFixed(2));
-							$("#m3b1").text(Math.sin(rotangle.Value()).toFixed(2));
-							$("#m3b2").text(Math.cos(rotangle.Value()).toFixed(2));
-							rotg.setLabelText(rotangle.Value().toFixed(2));
-						});
+							rotjsx.on('mousemove', function(e) {
+								var mPos = rotjsx.getUsrCoordsOfMouse(e);
+								$('#rotmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							rotjsx.on('update', function() {
+								$("#m3a1t").text(rotangle.Value().toFixed(2));
+								$("#m3a2t").text(rotangle.Value().toFixed(2));
+								$("#m3b1t").text(rotangle.Value().toFixed(2));
+								$("#m3b2t").text(rotangle.Value().toFixed(2));
+								$("#m3a1").text(Math.cos(rotangle.Value()).toFixed(2));
+								$("#m3a2").text(-Math.sin(rotangle.Value()).toFixed(2));
+								$("#m3b1").text(Math.sin(rotangle.Value()).toFixed(2));
+								$("#m3b2").text(Math.cos(rotangle.Value()).toFixed(2));
+								rotg.setLabelText(rotangle.Value().toFixed(2));
+							});
+
+							rotjsx.update();
+						}
 
 						function applyToImage3() {
 							if($("#applytoimage3").is(':checked')) {
@@ -306,6 +321,8 @@ require_once('header.php');
 								rotimg.hideElement();
 							}
 						}
+
+						initRot();
 					</script>
 				</div>
 			</div>

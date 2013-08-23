@@ -29,7 +29,7 @@ require_once('header.php');
 					<br /><br />
 
 					<center><div id='radgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="radjsx.zoom100(); radjsx.moveOrigin(radox, radoy); ">Reset position</button> <span class='mousepos' id='radmousepos'></span></div>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(radjsx); initRad();">Reset positions</button> <span class='mousepos' id='radmousepos'></span></div>
 
 					<br />
 					
@@ -40,42 +40,43 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						var radjsx = JXG.JSXGraph.initBoard('radgraph', {boundingbox: [-1.5, 1.5, 1.5, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var radox = radjsx.origin.scrCoords[1];
-						var radoy = radjsx.origin.scrCoords[2];
-						var radcirc = radjsx.create('circle', [[0, 0], 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
-						var radcentre = radjsx.create('point', [0, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
-						var radstart = radjsx.create('point', [1, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
-						var radend = radjsx.create('point', [0, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: false, borderColor: 'black'});
-						var radangle = radjsx.create('glider', [0.45, 0.45, radcirc], {strokeColor: 'black', fillColor: 'white', name: ''});
-						radend.setPosition(JXG.COORDS_BY_USER, [radangle.X(), radangle.Y()]);
-						var radsector = radjsx.create('angle', [radstart, radcentre, radend], {type:'sector', orthoType:'sector', radius: 1.0, name: ' '});
-
-						radjsx.create('text', [0.77, 0.77, "&pi;/4"]);
-						radjsx.create('text', [-0.05, 1.1, "&pi;/2"]);
-						radjsx.create('text', [-0.9, 0.78, "3&pi;/4"]);
-						radjsx.create('text', [-1.1, 0.0, "&pi;"]);
-						radjsx.create('text', [-0.9, -0.78, "5&pi;/4"]);
-						radjsx.create('text', [-0.07, -1.15, "3&pi;/2"]);
-						radjsx.create('text', [0.77, -0.78, "7&pi;/4"]);
-						radjsx.create('text', [1.1, 0.0, "0 or 2&pi;"]);
-
-						radjsx.on('update', function() {
+						function initRad() {
+							radjsx = JXG.JSXGraph.initBoard('radgraph', {boundingbox: [-1.5, 1.5, 1.5, -1.5], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+							var radcirc = radjsx.create('circle', [[0, 0], 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
+							var radcentre = radjsx.create('point', [0, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
+							var radstart = radjsx.create('point', [1, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
+							var radend = radjsx.create('point', [0, 0], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: false, borderColor: 'black'});
+							var radangle = radjsx.create('glider', [0.45, 0.45, radcirc], {strokeColor: 'black', fillColor: 'white', name: ''});
 							radend.setPosition(JXG.COORDS_BY_USER, [radangle.X(), radangle.Y()]);
-							rad = Math.acos(radangle.X());
-							if(radangle.Y() < 0) {
-								rad = (Math.PI + (Math.PI - rad))
-							}					
-							deg = (rad * 180/Math.PI);
-							radangle.setLabelText(rad.toFixed(2) + " rad or " + deg.toFixed(0) + "&deg;");
-							$("#rad").html(rad.toFixed(2) + ' ');
-							$("#deg").html(' ' + deg.toFixed(2));
-						});
-						radjsx.on('mousemove', function(e) {
-							var mPos = radjsx.getUsrCoordsOfMouse(e);
-							$('#radmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
-						radjsx.update();
+							var radsector = radjsx.create('angle', [radstart, radcentre, radend], {type:'sector', orthoType:'sector', radius: 1.0, name: ' '});
+
+							radjsx.create('text', [0.77, 0.77, "&pi;/4"]);
+							radjsx.create('text', [-0.05, 1.1, "&pi;/2"]);
+							radjsx.create('text', [-0.9, 0.78, "3&pi;/4"]);
+							radjsx.create('text', [-1.1, 0.0, "&pi;"]);
+							radjsx.create('text', [-0.9, -0.78, "5&pi;/4"]);
+							radjsx.create('text', [-0.07, -1.15, "3&pi;/2"]);
+							radjsx.create('text', [0.77, -0.78, "7&pi;/4"]);
+							radjsx.create('text', [1.1, 0.0, "0 or 2&pi;"]);
+
+							radjsx.on('update', function() {
+								radend.setPosition(JXG.COORDS_BY_USER, [radangle.X(), radangle.Y()]);
+								rad = Math.acos(radangle.X());
+								if(radangle.Y() < 0) {
+									rad = (Math.PI + (Math.PI - rad))
+								}					
+								deg = (rad * 180/Math.PI);
+								radangle.setLabelText(rad.toFixed(2) + " rad or " + deg.toFixed(0) + "&deg;");
+								$("#rad").html(rad.toFixed(2) + ' ');
+								$("#deg").html(' ' + deg.toFixed(2));
+							});
+							radjsx.on('mousemove', function(e) {
+								var mPos = radjsx.getUsrCoordsOfMouse(e);
+								$('#radmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+							radjsx.update();
+						}
+						initRad();
 					</script>
 
 					<h2 id='pythagoras'>Pythagoras</h2>
@@ -91,7 +92,7 @@ require_once('header.php');
 					<br /><br />
 
 					<center><div id='pythgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="pythjsx.zoom100(); pythjsx.moveOrigin(pythox, pythoy); ">Reset position</button> <span class='mousepos' id='pythmousepos'></span><br /><br /><input type='checkbox' id='showsquares' onclick='showSquares();' /><label for='showsquares'>Show squares</label></div>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(pythjsx); initPyth();">Reset positions</button> <span class='mousepos' id='pythmousepos'></span><br /><br /><input type='checkbox' id='showsquares' onclick='showSquares();' /><label for='showsquares'>Show squares</label></div>
 
 					<center>
 					<span id='pya'>a</span>$^2 + $<span id='pyb'>b</span>$^2 = $<span id='pyc'> c</span>$^2$<br />
@@ -99,39 +100,40 @@ require_once('header.php');
 					</center>
 
 					<script type='text/javascript'>
-						var pythjsx = JXG.JSXGraph.initBoard('pythgraph', {boundingbox: [-18, 32, 32, -18], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						var pythox = pythjsx.origin.scrCoords[1];
-						var pythoy = pythjsx.origin.scrCoords[2];
-						var pa = pythjsx.createElement('slider', [[1,1], [1,15], [0,8,14]], {name:'a', snapWidth:0.1});
-						var pb = pythjsx.createElement('slider', [[1,1], [15,1], [0,6,14]], {name:'b', snapWidth:0.1});
-						var corner = pythjsx.create('point', [1,1], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
-						var poly = pythjsx.create('polygon', [pa, pb, corner]);
-						var sqa = pythjsx.create('regularpolygon', [corner, pa, 4], {fillColor: '#88f', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
-						sqa.vertices[2].hideElement();
-						sqa.vertices[3].hideElement();
-						var sqb = pythjsx.create('regularpolygon', [pb, corner, 4], {fillColor: '#f88', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
-						sqb.vertices[2].hideElement();
-						sqb.vertices[3].hideElement();
-						var sqc = pythjsx.create('regularpolygon', [pa, pb, 4], {fillColor: '#f18', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
-						sqc.vertices[2].hideElement();
-						sqc.vertices[3].hideElement();
-						pythjsx.attr.pan.needShift = true;
-						pythjsx.on('update', function() {
-							sqa.setLabelText(sqa.Area().toFixed(2));
-							sqb.setLabelText(sqb.Area().toFixed(2));
-							sqc.setLabelText(sqc.Area().toFixed(2));
-							$('#pyasq').text(' ' + sqa.Area().toFixed(2));
-							$('#pybsq').text(' ' + sqb.Area().toFixed(2));
-							$('#pycsq').text(' ' + sqc.Area().toFixed(2));
-							$('#pya').text(' ' + Math.sqrt(sqa.Area()).toFixed(2));
-							$('#pyb').text(' ' + Math.sqrt(sqb.Area()).toFixed(2));
-							$('#pyc').text(' ' + Math.sqrt(sqc.Area()).toFixed(2));
-						});
-						pythjsx.on('mousemove', function(e) {
-							var mPos = pythjsx.getUsrCoordsOfMouse(e);
-							$('#pythmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
-						pythjsx.update();
+						function initPyth() {
+							pythjsx = JXG.JSXGraph.initBoard('pythgraph', {boundingbox: [-18, 32, 32, -18], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+							var pa = pythjsx.createElement('slider', [[1,1], [1,15], [0,8,14]], {name:'a', snapWidth:0.1});
+							var pb = pythjsx.createElement('slider', [[1,1], [15,1], [0,6,14]], {name:'b', snapWidth:0.1});
+							var corner = pythjsx.create('point', [1,1], {strokeColor: 'black', fillColor: 'black', size: 1, name: '', fixed: true, borderColor: 'black'});
+							var poly = pythjsx.create('polygon', [pa, pb, corner]);
+							sqa = pythjsx.create('regularpolygon', [corner, pa, 4], {fillColor: '#88f', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
+							sqa.vertices[2].hideElement();
+							sqa.vertices[3].hideElement();
+							sqb = pythjsx.create('regularpolygon', [pb, corner, 4], {fillColor: '#f88', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
+							sqb.vertices[2].hideElement();
+							sqb.vertices[3].hideElement();
+							sqc = pythjsx.create('regularpolygon', [pa, pb, 4], {fillColor: '#f18', highlight: false, withLabel: true, visible: false, label: {offset: [-15, 10]}});
+							sqc.vertices[2].hideElement();
+							sqc.vertices[3].hideElement();
+							pythjsx.attr.pan.needShift = true;
+							pythjsx.on('update', function() {
+								sqa.setLabelText(sqa.Area().toFixed(2));
+								sqb.setLabelText(sqb.Area().toFixed(2));
+								sqc.setLabelText(sqc.Area().toFixed(2));
+								$('#pyasq').text(' ' + sqa.Area().toFixed(2));
+								$('#pybsq').text(' ' + sqb.Area().toFixed(2));
+								$('#pycsq').text(' ' + sqc.Area().toFixed(2));
+								$('#pya').text(' ' + Math.sqrt(sqa.Area()).toFixed(2));
+								$('#pyb').text(' ' + Math.sqrt(sqb.Area()).toFixed(2));
+								$('#pyc').text(' ' + Math.sqrt(sqc.Area()).toFixed(2));
+							});
+							pythjsx.on('mousemove', function(e) {
+								var mPos = pythjsx.getUsrCoordsOfMouse(e);
+								$('#pythmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+							$("#showsquares").attr("checked", false);
+							pythjsx.update();
+						}
 
 						function showSquares() {
 							if($("#showsquares").is(':checked')) {
@@ -148,6 +150,8 @@ require_once('header.php');
 								sqc.hideElement();
 							}
 						}
+
+						initPyth();
 					</script>
 
 					<br /><br />
@@ -256,32 +260,33 @@ require_once('header.php');
 					<br />
 
 					<center><div id='circgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols'><button onclick="jsx.zoom100(); jsx.moveOrigin(circox, circoy); ">Reset position</button> <span class='mousepos' id='mousepos'></span></div>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(jsx); initCirc();">Reset positions</button> <span class='mousepos' id='mousepos'></span></div>
 
 					<br />					
 
 					<center>$(X - $<span id='a'>a</span>$)^2 + (Y - $<span id='b'>b</span>$)^2 = $<span id='r'>r</span>$^2$</center>
 
 					<script type='text/javascript'>
-						var jsx = JXG.JSXGraph.initBoard('circgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
-						jsx.attr.pan.needShift = true;
-						var circox = jsx.origin.scrCoords[1];
-						var circoy = jsx.origin.scrCoords[2];
-						var r = jsx.createElement('slider', [[-5,5], [4.5,5], [0,1,5]], {name:'r', snapWidth:0.1});
-						var centre = jsx.create('point', [0,0], {strokeColor: 'black', fillColor: 'white', name:''});
-						var circ = jsx.create('circle', [centre, 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
+						function initCirc() {
+							jsx = JXG.JSXGraph.initBoard('circgraph', {boundingbox: [-6, 6, 6, -6], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+							jsx.attr.pan.needShift = true;
+							var r = jsx.createElement('slider', [[-5,5], [4.5,5], [0,1,5]], {name:'r', snapWidth:0.1});
+							var centre = jsx.create('point', [0,0], {strokeColor: 'black', fillColor: 'white', name:''});
+							var circ = jsx.create('circle', [centre, 1], {fillColor: '#ccf', highlightFillColor: '#ccf', fillOpacity: 0.5, highlightFillOpacity: 0.5, strokeColor: 'black', highlightStrokeColor: 'black'});
 
-						jsx.on('update', function() {
-							circ.setRadius(r.Value());
-							$('#a').text(' ' + circ.center.X().toFixed(2));
-							$('#b').text(' ' + circ.center.Y().toFixed(2));
-							$('#r').text(' ' + circ.getRadius().toFixed(2));
-						});
-						jsx.on('mousemove', function(e) {
-							var mPos = jsx.getUsrCoordsOfMouse(e);
-							$('#mousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
-						});
-						jsx.update();
+							jsx.on('update', function() {
+								circ.setRadius(r.Value());
+								$('#a').text(' ' + circ.center.X().toFixed(2));
+								$('#b').text(' ' + circ.center.Y().toFixed(2));
+								$('#r').text(' ' + circ.getRadius().toFixed(2));
+							});
+							jsx.on('mousemove', function(e) {
+								var mPos = jsx.getUsrCoordsOfMouse(e);
+								$('#mousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+							jsx.update();
+						}
+						initCirc();
 					</script>
 
 					<br /><br />
