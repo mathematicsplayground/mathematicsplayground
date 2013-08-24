@@ -160,8 +160,10 @@ require_once('header.php');
 					<br />
 
 					$\vec{a}.\vec{b} = |\vec{a}| |\vec{b}| cos\theta$<br /><br />
+					$\vec{a}.\vec{b} = \vec{a}_1*\vec{b}_1 + \vec{a}_2*\vec{b}_2$<br /><br />
 
-					<p>Drag the ends of the two vectors to change their direction and magnitude. The blue line shows the component of $\vec{b}$ in the direction of $\vec{a}$ ($\frac{\vec{a}.\vec{b}}{|\vec{a}|}$) </p>
+					<p>Drag the ends of the two vectors to change their direction and magnitude. The blue line shows the component of $\vec{b}$ in the direction of $\vec{a}$, which is $\frac{\vec{a}.\vec{b}}{|\vec{a}|}$, or 
+equivalently, $|\vec{b}| cos\Theta$</p>
 
 					<br /><br />
 
