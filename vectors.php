@@ -246,7 +246,7 @@ require_once('header.php');
 							var linev2 = linejsx.create('arrow', [linep1, linep2], {strokecolor: 'black', strokeWidth: 3, fixed: true});
 							var liner = linejsx.create('point', [3, 2], {fillColor: 'red', strokeColor: 'red', name: 'r', fixed: true});
 							liner.setPosition(JXG.COORDS_BY_USER, [linep1.X() + lineslr.Value() * (linep2.X() - linep1.X()), linep1.Y() + lineslr.Value() * (linep2.Y() - linep1.Y())]);
-							var linevr = linejsx.create('arrow', [linep, liner], {strokecolor: 'black', strokeWidth: 3});
+							var linevr = linejsx.create('arrow', [linep, liner], {strokecolor: '#4c4', strokeWidth: 3});
 							var linel = linejsx.create('line', [linep1, linep2], {strokecolor: '#c44', strokeWidth: 1, fixed: true});
 							linejsx.on('update', function() {
 								liner.setPosition(JXG.COORDS_BY_USER, [linep1.X() + lineslr.Value() * (linep2.X() - linep1.X()), linep1.Y() + lineslr.Value() * (linep2.Y() - linep1.Y())]);
