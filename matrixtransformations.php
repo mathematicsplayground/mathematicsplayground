@@ -15,6 +15,7 @@ require_once('header.php');
 						<li><a href="#scaling">Scaling</a></li>
 						<li><a href="#translation">Translation</a></li>
 						<li><a href="#rotation">Rotation</a></li>
+						<li><a href="#shearing">Shearing</a></li>
 					</ul>
 				</div>
 
@@ -273,7 +274,7 @@ require_once('header.php');
 							var rotg = rotjsx.create('glider', [5, 0, rotcirc], {strokeColor: 'black', fillColor: 'white', name: '0.00'});
 							var roto = rotjsx.create('point', [0, 0], {fixed: true, visible: false});
 							var rot5 = rotjsx.create('point', [5, 0], {fixed: true, visible: false});
-							var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, withLabel: false});
+							var rotangle = rotjsx.create('angle', [rot5, roto, rotg], {radius: 5, withLabel: false, orthoType:'sector'});
 							var rotp1 = rotjsx.create('point', [1, 1], {fixed: true, visible: false});
 							var rotv1 = rotjsx.create('arrow', [[0, 0], rotp1], {fixed: true, strokeColor: '#555'});
 							var rotp2 = rotjsx.create('point', [1, 3], {fixed: true, visible: false});
@@ -323,6 +324,99 @@ require_once('header.php');
 						}
 
 						initRot();
+					</script>
+				</div>
+
+				<div style='clear: both;'>
+					<h2 id='shearing'>Shearing</h2>
+
+					<br />
+
+					<p>The graph below shows four vectors which are all being multiplied by the matrix on the left. Drag the slider to change the shearing factor and note the changes to the matrix and the vectors. Selecting the <em>"Apply to image"</em> option will cause this matrix transformation to be applied to an image.</p>
+
+					<br /><br />
+
+					<table class='matrix' style='margin-left: 1em; margin-right: 1.5em; margin-top: 200px;'>
+						<tr>
+							<td class='matrixtop'></td>
+							<td><span id='m4a1' class='matrixresult'>1.00</span></td>
+							<td><span id='m4a2' class='matrixresult'>0.00</span></td>
+							<td class='matrixtop'></td>
+						</tr>
+						<tr>
+							<td class='matrixbottom'></td>
+							<td><span id='m4b1' class='matrixresult'>0.00</span></td>
+							<td><span id='m4b2' class='matrixresult'>1.00</span></td>
+							<td class='matrixbottom'></td>
+						</tr>
+					</table>
+
+					<div class="operator" style='margin-top: 200px;'>
+					*
+					</div>
+
+					<div style='float: right;'>
+					<div id='sheargraph' class='jxgbox medgraph'></div>
+					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(shearjsx); initShear();">Reset positions</button> <span class='mousepos' id='shearmousepos'></span><br /><br /><input type='checkbox' id='applytoimage4' onclick='applyToImage4();' /><label for='applytoimage4'>Apply to image</label></div>
+					</div>
+
+					<br />
+
+					<center>
+					</center>
+
+					<br /><br />
+
+					<script type='text/javascript'>
+						function initShear() {
+							shearjsx = JXG.JSXGraph.initBoard('sheargraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+
+							var shearsx = shearjsx.createElement('slider', [[-8,9], [7,9], [-2.5,0,2.5]], {name:'X shear', snapWidth:0.1});
+							var shearsy = shearjsx.createElement('slider', [[-9,8], [-9,-7], [-2.5,0,2.5]], {name:'Y shear', snapWidth:0.1});
+							var shearp1 = shearjsx.create('point', [1, 1], {fixed: true, visible: false});
+							var shearv1 = shearjsx.create('arrow', [[0, 0], shearp1], {fixed: true, strokeColor: '#555'});
+							var shearp2 = shearjsx.create('point', [1, 3], {fixed: true, visible: false});
+							var shearv2 = shearjsx.create('arrow', [[0, 0], shearp2], {fixed: true, strokeColor: '#555'});
+							var shearp3 = shearjsx.create('point', [4, 1], {fixed: true, visible: false});
+							var shearv3 = shearjsx.create('arrow', [[0, 0], shearp3], {fixed: true, strokeColor: '#555'});
+							var shearp4 = shearjsx.create('point', [4, 3], {fixed: true, visible: false});
+							var shearv4 = shearjsx.create('arrow', [[0, 0], shearp4], {fixed: true, strokeColor: '#555'});
+							shearimg = shearjsx.create('image',["img/butterfly.png", [1,1], [3,2]], {fixed: true, visible: false});
+							var sheartransform = shearjsx.create('transform',[
+								1, 0, 0,
+								0, 1, function() { return shearsx.Value(); },
+								0, function() {return shearsy.Value(); }, 1,
+								], {type:'generic'}); 
+							sheartransform.bindTo(shearp1);
+							sheartransform.bindTo(shearp2);
+							sheartransform.bindTo(shearp3);
+							sheartransform.bindTo(shearp4);
+							sheartransform.bindTo(shearimg);
+
+							$("#applytoimage4").attr("checked", false);
+
+							shearjsx.on('mousemove', function(e) {
+								var mPos = shearjsx.getUsrCoordsOfMouse(e);
+								$('#shearmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							shearjsx.on('update', function() {
+								$("#m4a2").text(shearsx.Value().toFixed(2));
+								$("#m4b1").text(shearsy.Value().toFixed(2));
+							});
+
+							shearjsx.update();
+						}
+
+						function applyToImage4() {
+							if($("#applytoimage4").is(':checked')) {
+								shearimg.showElement();
+							} else {
+								shearimg.hideElement();
+							}
+						}
+
+						initShear();
 					</script>
 				</div>
 			</div>
