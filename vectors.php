@@ -84,6 +84,52 @@ require_once('header.php');
 					<br />
 					
 					<center>
+						<table class="matrix" style='margin-left: 11em;'>
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m1a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m1b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
+
+						<div class='operator'>
+							+
+						</div>
+
+						<table class="matrix">
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m2a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m2b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
+
+						<div class='operator'>
+							=
+						</div>
+
+						<table class="matrix">
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m3a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m3b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
 					</center>
 
 					<br /><br />
@@ -103,15 +149,28 @@ require_once('header.php');
 								function(){return (addp.Y() + addp2.Y()) * 0.5;},
 								'v1 + v2']
 							);
+
+							addjsx.on('update', function() {
+								$("#m1a1").text(addp1.X().toFixed(2));
+								$("#m1b1").text(addp1.Y().toFixed(2));
+								$("#m2a1").text((addp2.X() - addp1.X()).toFixed(2));
+								$("#m2b1").text((addp2.Y() - addp1.Y()).toFixed(2));
+								$("#m3a1").text(addp2.X().toFixed(2));
+								$("#m3b1").text(addp2.Y().toFixed(2));
+							});
+
 							addjsx.on('mousemove', function(e) {
 								var mPos = addjsx.getUsrCoordsOfMouse(e);
 								$('#addmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 							});
+
+							addjsx.update();
 						}
 						initAdd();
 					</script>
 				</div>
-				<div>
+				<div style='clear: both;'>
+					<br />
 					<h2 id='subtraction'>Subtraction</h2>
 
 					<br />
@@ -145,6 +204,7 @@ require_once('header.php');
 								function(){return (subp1.Y() + subp2.Y()) * 0.5;},
 								'v2 - v1']
 							);
+
 							subjsx.on('mousemove', function(e) {
 								var mPos = subjsx.getUsrCoordsOfMouse(e);
 								$('#submousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
