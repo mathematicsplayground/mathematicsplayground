@@ -372,7 +372,7 @@ require_once('header.php');
 							shearjsx = JXG.JSXGraph.initBoard('sheargraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
 							var shearsx = shearjsx.createElement('slider', [[-8,9], [7,9], [-2.5,0,2.5]], {name:'X shear', snapWidth:0.1});
-							var shearsy = shearjsx.createElement('slider', [[-9,8], [-9,-7], [-2.5,0,2.5]], {name:'Y shear', snapWidth:0.1});
+							var shearsy = shearjsx.createElement('slider', [[-9,8], [-9,-7], [2.5,0,-2.5]], {name:'Y shear', snapWidth:0.1});
 							var shearp1 = shearjsx.create('point', [1, 1], {fixed: true, visible: false});
 							var shearv1 = shearjsx.create('arrow', [[0, 0], shearp1], {fixed: true, strokeColor: '#555'});
 							var shearp2 = shearjsx.create('point', [1, 3], {fixed: true, visible: false});
