@@ -173,7 +173,8 @@ equivalently, $|\vec{b}| cos\Theta$</p>
 					<br />
 					
 					<center>
-						$\vec{a}.\vec{b} = $<span id='ascalar'>a</span>$ * $<span id='bscalar'>b</span>$ * cos($<span  id='theta'>&Theta;</span>$) = $ <span id='dotres'>0</span>
+						$\vec{a}.\vec{b} = $<span id='ascalar'>a</span>$ * $<span id='bscalar'>b</span>$ * cos($<span  id='theta'>&Theta;</span>$) = $ <span id='dotres'>0</span><br /><br />
+						$\vec{a}.\vec{b} = $<span id='a1'>a1</span>$ * $<span id='b1'>b1</span>$ + $<span  id='a2'>a1</span>$ * $<span id='b2'>b2</span>$ = $ <span id='dotres2'>0</span>
 					</center>
 
 					<br /><br />
@@ -199,8 +200,13 @@ equivalently, $|\vec{b}| cos\Theta$</p>
 								$("#ascalar").text(' ' + dotv1.L().toFixed(2));
 								$("#bscalar").text(dotv2.L().toFixed(2));
 								$("#theta").text(dotangle.Value().toFixed(2));
+								$("#a1").text(' ' + dotp1.X().toFixed(2) + ' ');
+								$("#b1").text(' ' + dotp2.X().toFixed(2) + ' ');
+								$("#a2").text(' ' + dotp1.Y().toFixed(2) + ' ');
+								$("#b2").text(' ' + dotp2.Y().toFixed(2) + ' ');
 								dotproduct = dotv1.L() * dotv2.L() * Math.cos(dotangle.Value());
 								$("#dotres").text(' ' + dotproduct.toFixed(2));
+								$("#dotres2").text(' ' + dotproduct.toFixed(2));
 								dist = JXG.Math.Geometry.distance([dotp1.X(), dotp1.Y()], [0, 0]);
 								component = dotproduct / dotv1.L();
 								dotr.setPosition(JXG.COORDS_BY_USER, [dotp1.X() * component/dist, dotp1.Y() * component/dist]);
