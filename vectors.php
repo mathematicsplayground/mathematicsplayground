@@ -170,7 +170,9 @@ require_once('header.php');
 					</script>
 				</div>
 				<div style='clear: both;'>
+
 					<br />
+
 					<h2 id='subtraction'>Subtraction</h2>
 
 					<br />
@@ -185,6 +187,52 @@ require_once('header.php');
 					<br />
 					
 					<center>
+						<table class="matrix" style='margin-left: 11em;'>
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m4a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m4b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
+
+						<div class='operator'>
+							-
+						</div>
+
+						<table class="matrix">
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m5a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m5b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
+
+						<div class='operator'>
+							=
+						</div>
+
+						<table class="matrix">
+							<tr>
+								<td class='matrixtop'>
+								<td><span id='m6a1' class='matrixresult'>0.00</span></td>
+								<td class='matrixtop'>
+							</tr>
+							<tr>
+								<td class='matrixbottom'>
+								<td><span id='m6b1' class='matrixresult'>0.00</span></td>
+								<td class='matrixbottom'>
+							</tr>
+						</table>
 					</center>
 
 					<br /><br />
@@ -199,22 +247,37 @@ require_once('header.php');
 							var subp2 = subjsx.create('point', [1, 4], {fillColor: 'white', strokeColor: 'black', name: 'v2'});
 							var subv2 = subjsx.create('arrow', [subp, subp2], {strokecolor: 'black', strokeWidth: 3});
 							var subv3 = subjsx.create('arrow', [subp1, subp2], {strokecolor: '#4c4', strokeWidth: 3});
+
 							subjsx.create('text',[
 								function(){return (subp1.X() + subp2.X()) * 0.5 + 0.5;},
 								function(){return (subp1.Y() + subp2.Y()) * 0.5;},
 								'v2 - v1']
 							);
 
+							subjsx.on('update', function() {
+								$("#m4a1").text(subp2.X().toFixed(2));
+								$("#m4b1").text(subp2.Y().toFixed(2));
+								$("#m5a1").text(subp1.X().toFixed(2));
+								$("#m5b1").text(subp1.Y().toFixed(2));
+								$("#m6a1").text((subp2.X() - subp1.X()).toFixed(2));
+								$("#m6b1").text((subp2.Y() - subp1.Y()).toFixed(2));
+							});
+
 							subjsx.on('mousemove', function(e) {
 								var mPos = subjsx.getUsrCoordsOfMouse(e);
 								$('#submousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 							});
+
+							subjsx.update();
 						}
 						initSub();
 					</script>
 				</div>
 
-				<div>
+				<div style='clear: both;'>
+
+					<br />
+
 					<h2 id='dotproduct'>Dot Product</h2>
 
 					<br />
