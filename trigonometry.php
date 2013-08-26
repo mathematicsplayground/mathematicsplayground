@@ -50,14 +50,14 @@ require_once('header.php');
 							radend.setPosition(JXG.COORDS_BY_USER, [radangle.X(), radangle.Y()]);
 							var radsector = radjsx.create('angle', [radstart, radcentre, radend], {type:'sector', orthoType:'sector', radius: 1.0, name: ' '});
 
-							radjsx.create('text', [0.77, 0.77, "&pi;/4"]);
-							radjsx.create('text', [-0.05, 1.1, "&pi;/2"]);
-							radjsx.create('text', [-0.9, 0.78, "3&pi;/4"]);
-							radjsx.create('text', [-1.1, 0.0, "&pi;"]);
-							radjsx.create('text', [-0.9, -0.78, "5&pi;/4"]);
-							radjsx.create('text', [-0.07, -1.15, "3&pi;/2"]);
-							radjsx.create('text', [0.77, -0.78, "7&pi;/4"]);
-							radjsx.create('text', [1.1, 0.0, "0 or 2&pi;"]);
+							radjsx.create('text', [0.77, 0.77, "&pi;/4"], {fixed: true});
+							radjsx.create('text', [-0.05, 1.1, "&pi;/2"], {fixed: true});
+							radjsx.create('text', [-0.9, 0.78, "3&pi;/4"], {fixed: true});
+							radjsx.create('text', [-1.1, 0.0, "&pi;"], {fixed: true});
+							radjsx.create('text', [-0.9, -0.78, "5&pi;/4"], {fixed: true});
+							radjsx.create('text', [-0.07, -1.15, "3&pi;/2"], {fixed: true});
+							radjsx.create('text', [0.77, -0.78, "7&pi;/4"], {fixed: true});
+							radjsx.create('text', [1.1, 0.0, "0 or 2&pi;"], {fixed: true});
 
 							radjsx.on('update', function() {
 								radend.setPosition(JXG.COORDS_BY_USER, [radangle.X(), radangle.Y()]);
