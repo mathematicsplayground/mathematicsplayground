@@ -35,12 +35,13 @@ require_once('header.php');
 					<center><div id='qegraph' class='jxgbox medgraph'></div></center>
 					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(qejsx); initQe();">Reset positions</button> <span class='mousepos' id='qemousepos'></span></div>
 
-					<br />
-					
-					<center>
-					<span id='qeformula1'></span><br /><br />
-					<span id='qeformula2'></span><br />
-					</center>
+					<div style='width: 430px; margin: auto;'>
+						<div style='float: right; margin-left: 0;'><span id='qeformula2'></span></div>
+						<span id='qeformula1'></span><br /><br />
+						<div style='clear: both; padding-top: 1em;'>
+							<center><span id='qeformula3'></span></center>
+						</div>
+					</div>
 
 					<br /><br />
 
@@ -78,9 +79,11 @@ require_once('header.php');
 								qex1.setLabelText(solution1);
 								qex2.setLabelText(solution2);
 								$("#qeformula1").text("$" + a + "x^2 + " + b + "x + " + c + "= 0$");
-								$("#qeformula2").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
+								$("#qeformula2").html("$(px + q)(rx + s) = 0$<br/>$pr = " + a + "$<br/>$ps + qr = " + b + "$<br/>$qs = " + c + "$");
+								$("#qeformula3").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
 								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula1"]);
 								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula2"]);
+								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula3"]);
 							});
 
 							qejsx.on('mousemove', function(e) {
