@@ -53,14 +53,30 @@ require_once('header.php');
 							var qeslc = qejsx.createElement('slider', [[-9.25, -8], [5.5, -8], [-10, -4, 10]], {name:'c', snapWidth: 0.1});
 
 							var qeplot = qejsx.create('functiongraph', [
-								function (x) { return qesla.Value() * Math.pow(x, 2) + qeslb.Value() * x + qeslc.Value(); }, -100, 100], {fixed: true, strokeWidth: 2});
+								function (x) { return qesla.Value() * Math.pow(x, 2) + qeslb.Value() * x + qeslc.Value(); }, -100, 100], {fixed: true, strokeWidth: 2, strokeColor: '#44c'});
+
+							var qex1 = qejsx.createElement('point', [function () {
+								var a = qesla.Value();
+								var b = qeslb.Value();
+								var c = qeslc.Value();
+								return ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+							},0], {strokeColor: '#44c', fillColor: '#44c'});
+
+							var qex2 = qejsx.createElement('point', [function () {
+								var a = qesla.Value();
+								var b = qeslb.Value();
+								var c = qeslc.Value();
+								return ((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+							}, 0], {strokeColor: '#44c', fillColor: '#44c'});
 
 							qejsx.on('update', function() {
 								var a = qesla.Value().toFixed(2);
 								var b = qeslb.Value().toFixed(2);
 								var c = qeslc.Value().toFixed(2);
-								var solution1 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c) / (-2 * a)).toFixed(2);
-								var solution2 = (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c) / (-2 * a)).toFixed(2);
+								var solution1 = ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
+								var solution2 = ((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
+								qex1.setLabelText(solution1);
+								qex2.setLabelText(solution2);
 								$("#qeformula1").text("$" + a + "x^2 + " + b + "x + " + c + "= 0$");
 								$("#qeformula2").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
 								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula1"]);
