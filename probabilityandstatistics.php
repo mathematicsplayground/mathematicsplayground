@@ -42,9 +42,8 @@ require_once('header.php');
 						function initUni() {
 							unijsx = JXG.JSXGraph.initBoard('unigraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
-							var unisample = unijsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 100]], {name: 'Sample', snapWidth: 1});
+							var unisample = unijsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
 
-							var oldsample = 0;
 							var points = [];
 
 							var unimean = unijsx.createElement('point', [function() {
@@ -85,6 +84,69 @@ require_once('header.php');
 					<br /><br />
 				</div>
 
+				<div>
+					<h2 id='normal'>Normal Distribution</h2>
+
+					<br />
+
+					<p>The graph below shows a random population with a normal distribution. Use the slider at the top to control the sample size. Select the tools on the left to display different statistics about this population.</p>
+
+					<br /><br />
+
+					<center><div id='normgraph' class='jxgbox medgraph'></div></center>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(normjsx); initNorm();">Reset</button> <span class='mousepos' id='normmousepos'></span></div>
+
+					<br />
+					
+					<center>
+					</center>
+
+					<br /><br />
+
+					<script type='text/javascript'>
+						function initNorm() {
+							normjsx = JXG.JSXGraph.initBoard('normgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+
+							var normsample = normjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
+
+							var points = [];
+
+							var normmean = normjsx.createElement('point', [function() {
+								return mean(getXArray(points));
+							}, function() {
+								return mean(getYArray(points));
+							}], {fixed: true, name: 'Mean', strokeColor: '#c44', fillColor: '#c44'});
+
+							var normmedian = normjsx.createElement('point', [function() {
+								return median(getXArray(points));
+							}, function() {
+								return median(getYArray(points));
+							}], {fixed: true, name: 'Median', strokeColor: '#4c4', fillColor: '#4c4'});
+
+							normjsx.on('update', function() {
+								if (normsample.Value() > points.length) {
+									for(i = points.length; i<normsample.Value(); i++) {
+										points[i] = normjsx.createElement('point', bmRand(9), {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
+									}
+								} else if (normsample.Value() < points.length) {
+									for(i = points.length - 1; i>=normsample.Value(); i--) {
+										points.pop().remove();
+									}
+								}
+
+							});
+
+							normjsx.on('mousemove', function(e) {
+								var mPos = normjsx.getUsrCoordsOfMouse(e);
+								$('#normmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							normjsx.update();
+						}
+						initNorm();
+					</script>
+
+					<br /><br />
 			</div>
 		</div>
 	</body>

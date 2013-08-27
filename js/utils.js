@@ -59,3 +59,17 @@ function getYArray(arr) {
 	}
 	return yarr;
 }
+
+function bmRand(v) {
+	var x = 0, y = 0, rds, c;
+	do {
+		x = Math.random()*2-1;
+		y = Math.random()*2-1;
+		rds = x*x + y*y;
+	}
+	while (rds == 0 || rds > 1)
+
+	c = Math.sqrt(-2*Math.log(rds)*v/rds);
+
+	return [x*c, y*c];
+}
