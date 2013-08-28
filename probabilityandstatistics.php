@@ -126,7 +126,7 @@ require_once('header.php');
 							normjsx.on('update', function() {
 								if (normsample.Value() > points.length) {
 									for(i = points.length; i<normsample.Value(); i++) {
-										points[i] = normjsx.createElement('point', bmRand(9), {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
+										points[i] = normjsx.createElement('point', normRand(9), {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
 									}
 								} else if (normsample.Value() < points.length) {
 									for(i = points.length - 1; i>=normsample.Value(); i--) {
@@ -147,6 +147,136 @@ require_once('header.php');
 					</script>
 
 					<br /><br />
+				</div>
+
+				<div>
+					<h2 id='binomial'>Binomial Distribution</h2>
+
+					<br />
+
+					<p>The graph below shows a random population with a normal distribution. Use the slider at the top to control the sample size. Select the tools on the left to display different statistics about this population.</p>
+
+					<br /><br />
+
+					<center><div id='bngraph' class='jxgbox medgraph'></div></center>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(bnjsx); initNorm();">Reset</button> <span class='mousepos' id='bnmousepos'></span></div>
+
+					<br />
+					
+					<center>
+					</center>
+
+					<br /><br />
+
+					<script type='text/javascript'>
+						function initNorm() {
+							bnjsx = JXG.JSXGraph.initBoard('bngraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+
+							var bnsample = bnjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
+
+							var points = [];
+
+							var bnmean = bnjsx.createElement('point', [function() {
+								return mean(getXArray(points));
+							}, function() {
+								return mean(getYArray(points));
+							}], {fixed: true, name: 'Mean', strokeColor: '#c44', fillColor: '#c44'});
+
+							var bnmedian = bnjsx.createElement('point', [function() {
+								return median(getXArray(points));
+							}, function() {
+								return median(getYArray(points));
+							}], {fixed: true, name: 'Median', strokeColor: '#4c4', fillColor: '#4c4'});
+
+							bnjsx.on('update', function() {
+								if (bnsample.Value() > points.length) {
+									for(i = points.length; i<bnsample.Value(); i++) {
+										points[i] = bnjsx.createElement('point', [bnRand(10,9), bnRand(10, 9)], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
+									}
+								} else if (bnsample.Value() < points.length) {
+									for(i = points.length - 1; i>=bnsample.Value(); i--) {
+										points.pop().remove();
+									}
+								}
+
+							});
+
+							bnjsx.on('mousemove', function(e) {
+								var mPos = bnjsx.getUsrCoordsOfMouse(e);
+								$('#bnmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							bnjsx.update();
+						}
+						initNorm();
+					</script>
+
+					<br /><br />
+				</div>
+				<div>
+					<h2 id='poisson'>Poisson Distribution</h2>
+
+					<br />
+
+					<p>The graph below shows a random population with a Poisson distribution. Use the slider at the top to control the sample size. Select the tools on the left to display different statistics about this population.</p>
+
+					<br /><br />
+
+					<center><div id='psgraph' class='jxgbox medgraph'></div></center>
+					<div class='graphcontrols'><button onclick="JXG.JSXGraph.freeBoard(psjsx); initPs();">Reset</button> <span class='mousepos' id='psmousepos'></span></div>
+
+					<br />
+					
+					<center>
+					</center>
+
+					<br /><br />
+
+					<script type='text/javascript'>
+						function initPs() {
+							psjsx = JXG.JSXGraph.initBoard('psgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
+
+							var pssample = psjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
+
+							var points = [];
+
+							var psmean = psjsx.createElement('point', [function() {
+								return mean(getXArray(points));
+							}, function() {
+								return mean(getYArray(points));
+							}], {fixed: true, name: 'Mean', strokeColor: '#c44', fillColor: '#c44'});
+
+							var psmedian = psjsx.createElement('point', [function() {
+								return median(getXArray(points));
+							}, function() {
+								return median(getYArray(points));
+							}], {fixed: true, name: 'Median', strokeColor: '#4c4', fillColor: '#4c4'});
+
+							psjsx.on('update', function() {
+								if (pssample.Value() > points.length) {
+									for(i = points.length; i<pssample.Value(); i++) {
+										points[i] = psjsx.createElement('point', [psRand(9) - 9, psRand(9) - 9], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
+									}
+								} else if (pssample.Value() < points.length) {
+									for(i = points.length - 1; i>=pssample.Value(); i--) {
+										points.pop().remove();
+									}
+								}
+
+							});
+
+							psjsx.on('mousemove', function(e) {
+								var mPos = psjsx.getUsrCoordsOfMouse(e);
+								$('#psmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
+							});
+
+							psjsx.update();
+						}
+						initPs();
+					</script>
+
+					<br /><br />
+				</div>
 			</div>
 		</div>
 	</body>

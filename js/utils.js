@@ -60,16 +60,38 @@ function getYArray(arr) {
 	return yarr;
 }
 
-function bmRand(v) {
+function normRand(v) {
 	var x = 0, y = 0, rds, c;
 	do {
 		x = Math.random()*2-1;
 		y = Math.random()*2-1;
 		rds = x*x + y*y;
-	}
-	while (rds == 0 || rds > 1)
+	} while (rds == 0 || rds > 1)
 
 	c = Math.sqrt(-2*Math.log(rds)*v/rds);
 
 	return [x*c, y*c];
+}
+
+function bnRand(n, p) {
+	x = 0;
+	for(i = 0; i < n; i++) {
+		if(Math.random() < p) {
+			x++;
+		}
+	}
+	return x;
+}
+
+function psRand(la) {
+	L = Math.exp(-la);
+	p = 1.0;
+	k = 0;
+
+	do {
+		k++;
+		p *= Math.random();
+	} while (p > L);
+
+	return k - 1;
 }
