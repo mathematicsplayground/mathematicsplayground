@@ -16,9 +16,7 @@ require_once('header.php');
 						<li><a href="#addition">Addition</a></li>
 						<li><a href="#subtraction">Subtraction</a></li>
 						<li><a href="#dotproduct">Dot Product</a></li>
-						<li><a href="#crossproduct">Cross Product</a></li>
 						<li><a href="#eqline">Equation of a Line</a></li>
-						<li><a href="#eqplane">Equation of a Plane</a></li>
 					</ul>
 				</div>
 
