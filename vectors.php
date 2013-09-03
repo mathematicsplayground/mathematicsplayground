@@ -81,54 +81,7 @@ require_once('header.php');
 
 					<br />
 					
-					<center>
-						<table class="matrix" style='margin-left: 11em;'>
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m1a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m1b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-
-						<div class='operator'>
-							+
-						</div>
-
-						<table class="matrix">
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m2a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m2b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-
-						<div class='operator'>
-							=
-						</div>
-
-						<table class="matrix">
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m3a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m3b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-					</center>
+					<center><span id='addresult'></span></center>
 
 					<br /><br />
 
@@ -149,12 +102,14 @@ require_once('header.php');
 							);
 
 							addjsx.on('update', function() {
-								$("#m1a1").text(addp1.X().toFixed(2));
-								$("#m1b1").text(addp1.Y().toFixed(2));
-								$("#m2a1").text((addp2.X() - addp1.X()).toFixed(2));
-								$("#m2b1").text((addp2.Y() - addp1.Y()).toFixed(2));
-								$("#m3a1").text(addp2.X().toFixed(2));
-								$("#m3b1").text(addp2.Y().toFixed(2));
+								var v1x = addp1.X().toFixed(2);
+								var v1y = addp1.Y().toFixed(2);
+								var v2x = (addp2.X() - addp1.X()).toFixed(2);
+								var v2y = (addp2.Y() - addp1.Y()).toFixed(2);
+								var resx = addp2.X().toFixed(2);
+								var resy = addp2.Y().toFixed(2);
+								$("#addresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v1x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
+								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "addresult"]);
 							});
 
 							addjsx.on('mousemove', function(e) {
@@ -184,54 +139,7 @@ require_once('header.php');
 
 					<br />
 					
-					<center>
-						<table class="matrix" style='margin-left: 11em;'>
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m4a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m4b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-
-						<div class='operator'>
-							-
-						</div>
-
-						<table class="matrix">
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m5a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m5b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-
-						<div class='operator'>
-							=
-						</div>
-
-						<table class="matrix">
-							<tr>
-								<td class='matrixtop'>
-								<td><span id='m6a1' class='matrixresult'>0.00</span></td>
-								<td class='matrixtop'>
-							</tr>
-							<tr>
-								<td class='matrixbottom'>
-								<td><span id='m6b1' class='matrixresult'>0.00</span></td>
-								<td class='matrixbottom'>
-							</tr>
-						</table>
-					</center>
+					<center><span id='subresult'></span></center>
 
 					<br /><br />
 
@@ -253,12 +161,14 @@ require_once('header.php');
 							);
 
 							subjsx.on('update', function() {
-								$("#m4a1").text(subp2.X().toFixed(2));
-								$("#m4b1").text(subp2.Y().toFixed(2));
-								$("#m5a1").text(subp1.X().toFixed(2));
-								$("#m5b1").text(subp1.Y().toFixed(2));
-								$("#m6a1").text((subp2.X() - subp1.X()).toFixed(2));
-								$("#m6b1").text((subp2.Y() - subp1.Y()).toFixed(2));
+								var v1x = subp2.X().toFixed(2);
+								var v1y = subp2.Y().toFixed(2);
+								var v2x = subp1.X().toFixed(2);
+								var v2y = subp1.Y().toFixed(2);
+								var resx = (subp2.X() - subp1.X()).toFixed(2);
+								var resy = (subp2.Y() - subp1.Y()).toFixed(2);
+								$("#subresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v1x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
+								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "subresult"]);
 							});
 
 							subjsx.on('mousemove', function(e) {
