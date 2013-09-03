@@ -24,6 +24,12 @@
 	top: -32px;
 }
 
+.smallgraphcontrols {
+	margin-left: 16px;
+	position: relative;
+	top: -32px;
+}
+
 .mousepos {
 	margin-left: 5px;
 	padding-top: 4px;
@@ -97,3 +103,8 @@ input {
 	color: #44f !important;
 }
 
+.photo {
+	float: left;
+	margin: 0em 1em 1em 1em;
+	border: 5px solid #e3e3e3;
+}

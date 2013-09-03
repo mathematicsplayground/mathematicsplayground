@@ -14,6 +14,8 @@ require_once('header.php');
 					<h2>Overview</h2>
 
 					<p>Welcome to the Mathematics Playground, a suite of interactive examples designed to give students a more intuitive understanding of a range of mathematical concepts. To get started simply select a topic from the menu on the left.</p>
+
+					<p>For further information on the project and details of how to contribute visit the <a href='about.php'>About page</a>.</p>
 				
 				</div>
 
