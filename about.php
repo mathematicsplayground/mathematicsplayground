@@ -81,7 +81,9 @@ require_once('header.php');
 
 					<div class='bio'>Michael holds a BEng in Software Engineering (2008) and a PhD in Developmental Robotics (2012) from Aberystwyth University. He now works as a freelance software developer and researcher. If you're interested in <a href='http://blog.mikeasoft.com/hire-me/'>hiring him</a>, he is available for both short and long term remote development work (with the ability to travel to meetings); or short term on-site work in the London area.
 
-					<br />
+					<div style='clear: both;'>
+					<br /><br /><br />
+					</div>
 
 				</div>
 
