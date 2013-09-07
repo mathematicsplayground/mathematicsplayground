@@ -81,9 +81,9 @@ require_once('header.php');
 								$("#qeformula1").text("$" + a + "x^2 + " + b + "x + " + c + "= 0$");
 								$("#qeformula2").html("$(px + q)(rx + s) = 0$<br/>$pr = " + a + "$<br/>$ps + qr = " + b + "$<br/>$qs = " + c + "$");
 								$("#qeformula3").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
-								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula1"]);
-								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula2"]);
-								MathJax.Hub.Queue(["Typeset",MathJax.Hub,"qeformula3"]);
+								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula1"]);
+								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula2"]);
+								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula3"]);
 							});
 
 							qejsx.on('mousemove', function(e) {

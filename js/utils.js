@@ -28,7 +28,7 @@ function mode(arr) {
 			mode = [arr[i]];
 		}
 	}
-	return mode; 
+	return mode;
 }
 
 function median(arr) {
@@ -70,11 +70,12 @@ function normRand(v) {
 
 	c = Math.sqrt(-2*Math.log(rds)*v/rds);
 
-	return [x*c, y*c];
+	return [Math.round(x*c), Math.round(y*c)];
 }
 
 function bnRand(n, p) {
-	x = 0;
+	var x = 0;
+	var i = 0;
 	for(i = 0; i < n; i++) {
 		if(Math.random() < p) {
 			x++;
@@ -84,9 +85,9 @@ function bnRand(n, p) {
 }
 
 function psRand(la) {
-	L = Math.exp(-la);
-	p = 1.0;
-	k = 0;
+	var L = Math.exp(-la);
+	var p = 1.0;
+	var k = 0;
 
 	do {
 		k++;
