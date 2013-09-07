@@ -27,7 +27,7 @@ require_once('header.php');
 
 					<p>If you come across any bugs or would like to suggest additional features then please let us know via our <a href='http://github.com/TODO/TODO/issues'>issue tracker</a>.</p>
 
-					<p>Mathematics Playground is an open source project licensed under the <a href='http://en.wikipedia.org/wiki/MIT_License'>MIT license</a>, if you'd like to contribute improvements to the project then please checkout our <a href='http://github.com/TODO/TODO/'>github page</a>.
+					<p>Mathematics Playground is an open source project licensed under the <a href='http://en.wikipedia.org/wiki/MIT_License'>MIT license</a>, if you'd like to contribute improvements to the project then please check out our <a href='http://github.com/TODO/TODO/'>github page</a>.
 
 					<h3>Future improvements</h3>
 
