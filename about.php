@@ -25,9 +25,9 @@ require_once('header.php');
 
 					<h2 id='contributing'>Contributing</h2>
 
-					<p>If you come across any bugs or would like to suggest additional features then please let us know via our <a href='http://github.com/TODO/TODO/issues'>issue tracker</a>.</p>
+					<p>If you come across any bugs or would like to suggest additional features then please let us know via our <a href='http://github.com/mathematicsplayground/mathematicsplayground/issues'>issue tracker</a>.</p>
 
-					<p>Mathematics Playground is an open source project licensed under the <a href='http://en.wikipedia.org/wiki/MIT_License'>MIT license</a>, if you'd like to contribute improvements to the project then please check out our <a href='http://github.com/TODO/TODO/'>github page</a>.
+					<p>Mathematics Playground is an open source project licensed under the <a href='http://en.wikipedia.org/wiki/MIT_License'>MIT license</a>, if you'd like to contribute improvements to the project then please check out our <a href='http://github.com/mathematicsplayground/mathematicsplayground/'>github page</a>.
 
 					<h3>Future improvements</h3>
 
