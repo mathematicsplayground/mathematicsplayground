@@ -1,5 +1,5 @@
-Math Play
-=========
+Mathematics Playground
+======================
 
 Interactive HTML5 mathematics examples.
 
@@ -11,17 +11,18 @@ Interactive HTML5 mathematics examples.
 About
 -----
 
-Math Play is a suite of interactive HTML5 examples designed to give students
-a more intuitive understanding of a range of mathematical concepts.
+Mathematics Playground is a suite of interactive HTML5 examples designed
+to give students a more intuitive understanding of a range of 
+mathematical concepts.
 
 Website
 -------
 
 * Project web site: http://mathplay.dcs.aber.ac.uk
-* GitHub project site: https://github.com/mathplay/mathplay
+* GitHub project site: https://github.com/mathematicsplayground/mathematicsplayground
 
 Please report bugs to our issue tracking system found at
-https://github.com/mathplay/mathplay/issues
+https://github.com/mathematicsplayground/mathematicsplayground/issues
 
 Contributing
 ------------
@@ -31,12 +32,12 @@ examples. Simply make a merge request and we'll be happy to review your
 improvements.
 
 For a list of examples we'd like to see implemented take a look at our
-about page: http://mathplay.dcs.aber.ac.uk/about.php
+about page: http://mathematicsplayground.dcs.aber.ac.uk/about.php
 
 License
 -------
 
-Math Play is licensed under the MIT license, duplicated below:
+Mathematics Playground is licensed under the MIT license, duplicated below:
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
