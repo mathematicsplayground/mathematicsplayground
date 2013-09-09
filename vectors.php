@@ -256,7 +256,8 @@ equivalently, $|\vec{b}| cos\Theta$</p>
 					<h2 id='eqline'>Equation of a Line</h2>
 
 					<br />
-					$\vec{r} = \vec{a} + t\vec{d}$
+					$\vec{r} = \vec{a} + t\vec{d}$<br /><br />
+					$y = mx + c$
 					<br /><br />
 
 					<p>Drag the two black and white points to modify the vectors $a$ and $d$ which describe the red line, use the slider to change the scalar value ($t$).</p>
