@@ -38,6 +38,9 @@ require_once('header.php');
 						$("#psshowmode").is(':checked') ? psmode.showElement() : psmode.hideElement();
 						$("#psshowrange").is(':checked') ? psrange.showElement() : psrange.hideElement();
 						unijsx.update();
+						normjsx.update();
+						bnjsx.update();
+						psjsx.update();
 					}
 				</script>
 
