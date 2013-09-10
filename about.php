@@ -6,9 +6,7 @@ require_once('header.php');
 		<div class="container-fluid">
 			<?php require_once('menu.html'); ?>
 			<div class="span9">
-				<div class="hero-unit">
-					<h1>Mathematics Playground</h1>
-				</div>
+				<img src='img/mathematics_playground.png' alt='Mathematics Playground' title='Mathematics Playground' />	
 				<div class="dropdown clearfix" style='float: right; margin-left: 1em;'>
 					<ul class="dropdown-menu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
 						<li><a href="#acknowledgements">Acknowledgements</a></li>

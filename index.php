@@ -6,9 +6,7 @@ require_once('header.php');
 		<div class="container-fluid">
 			<?php require_once('menu.html'); ?>
 			<div class="span9">
-				<div class="hero-unit">
-					<h1>Mathematics Playground</h1>
-				</div>
+				<img src='img/mathematics_playground.png' alt='Mathematics Playground' title='Mathematics Playground' />
 
 				<div>
 					<h2>Overview</h2>
