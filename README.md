@@ -24,6 +24,13 @@ Website
 Please report bugs to our issue tracking system found at
 https://github.com/mathematicsplayground/mathematicsplayground/issues
 
+Google Analytics
+----------------
+
+If you wish to enable Google Analytics on your installation of Mathematics
+Playground simple copy the file *analytics.php.example* to *analytics.php*,
+and edit it to include your Analytics account ID.
+
 Contributing
 ------------
 
