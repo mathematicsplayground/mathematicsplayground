@@ -57,7 +57,15 @@ require_once('header.php');
 
 					<h2 id='authors'>Authors</h2>
 
-					<h3><a href='http://users.aber.ac.uk/afc/'>Amanda Clare</a></h3>
+					The concept for Mathematics Playground was devised by Amanda Clare and Hannah Dee, who successfully won a grant to develop the idea in to a working system. Michael Sheldon was then hired to design and implement the individual examples for each topic. If you're interested in hiring Michael to work on your own projects, simply visit <a href='http://blog.mikeasoft.com/hire-me/'>his website</a>.
+
+					<h3 style='clear: both; padding-top: 1em;'><a href='http://www.mikeasoft.com'>Michael Sheldon</a></h3>
+
+					<div class='photo'><img src='img/bio/michael-sheldon.jpg' /></div>
+
+					<div class='bio'>Michael holds a BEng in Software Engineering (2008) and a PhD in Developmental Robotics (2012) from Aberystwyth University. He now works as a freelance software developer and researcher, specialising in open source development.
+
+					<h3 style='clear: both; padding-top: 1em;'><a href='http://users.aber.ac.uk/afc/'>Amanda Clare</a></h3>
 					
 					<div class='photo'><img src='img/bio/afc.jpg' /></div>
 
@@ -65,19 +73,13 @@ require_once('header.php');
 
 					<br />
 
-					<h3 style='clear: both;'><a href='http://users.aber.ac.uk/hmd1/'>Hannah Dee</a></h3>
+					<h3 style='clear: both; padding-top: 1em;'><a href='http://users.aber.ac.uk/hmd1/'>Hannah Dee</a></h3>
 					
 					<div class='photo'><img src='img/bio/hmd1.jpg' /></div>
 					
 					<div class='bio'>Hannah has a BSc in Cognitive Science (1996), an MA in Philosophy (1998) and a PhD in Computing (2005) all from the University of Leeds. Her research areas are computer vision for the analysis of human behaviour; the detection of shadows and reasoning about shadows; and student attitudes to the study of computer science. She has held post doctoral positions in Grenoble (France), Leeds, and Kingston upon Thames. She is also a women in computing activist and deputy chair of <a href='http://www.bcs.org/category/8630'>BCSWomen</a>, the British Computer Society's group for women.</div>
 
 					<br />
-
-					<h3 style='clear: both;'><a href='http://www.mikeasoft.com'>Michael Sheldon</a></h3>
-
-					<div class='photo'><img src='img/bio/michael-sheldon.jpg' /></div>
-
-					<div class='bio'>Michael holds a BEng in Software Engineering (2008) and a PhD in Developmental Robotics (2012) from Aberystwyth University. He now works as a freelance software developer and researcher. If you're interested in <a href='http://blog.mikeasoft.com/hire-me/'>hiring him</a>, he is available for both short and long term remote development work (with the ability to travel to meetings); or short term on-site work in the London area.
 
 					<div style='clear: both;'>
 					<br /><br /><br />
