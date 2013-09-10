@@ -1,0 +1,6 @@
+<?php
+
+/* Copy this file to analytics.php and replace the following value with your 
+   Google Analytics account ID, to enable Google Analytics. */
+
+$analyticsAccountId = "UA-00000-0";

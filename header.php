@@ -32,4 +32,21 @@
 		<script src="js/jsxgraphcore.js"></script>
 		<script src="js/jsxgraph.vector.js"></script>
 		<script src="js/utils.js"></script>
-	</head>
+		<?php
+			if(is_file("analytics.php") && is_readable("analytics.php")) {
+				include("analytics.php");
+				echo "<script type='text/javascript'>
+						var _gaq = _gaq || [];
+						_gaq.push(['_setAccount', '$analyticsAccountId']);
+						_gaq.push(['_trackPageview']);
+
+						(function() {
+							var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+							ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+							var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+						})();
+					</script>";
+			}
+		?>
+
+</head>
