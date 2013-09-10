@@ -32,6 +32,12 @@
 		<script src="js/jsxgraphcore.js"></script>
 		<script src="js/jsxgraph.vector.js"></script>
 		<script src="js/utils.js"></script>
+		<script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+		<script type="text/javascript" src="js/plugins/jqplot.barRenderer.min.js"></script>
+		<script type="text/javascript" src="js/plugins/jqplot.highlighter.min.js"></script>
+		<script type="text/javascript" src="js/plugins/jqplot.cursor.min.js"></script>
+		<script type="text/javascript" src="js/plugins/jqplot.pointLabels.min.js"></script>
+		<link rel="stylesheet" type="text/css" hrf="css/jquery.jqplot.min.css" />
 		<?php
 			if(is_file("analytics.php") && is_readable("analytics.php")) {
 				include("analytics.php");
