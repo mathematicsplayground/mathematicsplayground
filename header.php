@@ -28,16 +28,19 @@
 		</script>
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jsxgraphcore.js"></script>
-		<script src="js/jsxgraph.vector.js"></script>
-		<script src="js/utils.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/underscore.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jsxgraphcore.js"></script>
+		<script type="text/javascript" src="js/jsxgraph.vector.js"></script>
+		<script type="text/javascript" src="js/utils.js"></script>
 		<script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
 		<script type="text/javascript" src="js/plugins/jqplot.barRenderer.min.js"></script>
 		<script type="text/javascript" src="js/plugins/jqplot.highlighter.min.js"></script>
 		<script type="text/javascript" src="js/plugins/jqplot.cursor.min.js"></script>
 		<script type="text/javascript" src="js/plugins/jqplot.pointLabels.min.js"></script>
-		<link rel="stylesheet" type="text/css" hrf="css/jquery.jqplot.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui/jquery-ui.min.css" />
 		<?php
 			if(is_file("analytics.php") && is_readable("analytics.php")) {
 				include("analytics.php");
