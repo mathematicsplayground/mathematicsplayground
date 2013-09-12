@@ -42,6 +42,13 @@ require_once('header.php');
 						bnjsx.update();
 						psjsx.update();
 					}
+
+					$(document).ready(function() {
+						// JSXGraph can't be initialised correctly if not displayed
+						// so all tabs are marked active and then 2D tabs are hidden
+						// once all initialisation is complete.
+						$("#unitab2d").removeClass("active");
+					});
 				</script>
 
 				<div>
@@ -53,22 +60,31 @@ require_once('header.php');
 
 					<br /><br />
 
-					<div style='float: left; margin-left: 2em;'>
+					<div style='float: left; margin-left: 1em; margin-top: 5em;'>
 						<input type='checkbox' id='unishowmean' name='unishowmean' onclick='toggleShowing();' /><label for='unishowmean'>Show mean</label><br />
 						<input type='checkbox' id='unishowmedian' name='unishowmedian' onclick='toggleShowing();' /><label for='unishowmedian'>Show median</label><br />
 						<input type='checkbox' id='unishowmode' name='unishowmode' onclick='toggleShowing();' /><label for='unishowmode'>Show mode</label><br />
 						<input type='checkbox' id='unishowrange' name='unishowrange' onclick='toggleShowing();' /><label for='unishowrange'>Show range</label><br />
 					</div>
-					<center><div id='unigraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols' style='margin-left: 202px;'><button onclick="JXG.JSXGraph.freeBoard(unijsx); initUni();">Reset</button> <span class='mousepos' id='unimousepos'></span></div>
 
-					<br />
-					
-					<center>
-					</center>
+					<div class="tabbable" style='float: left; padding-left: 1em;'>
+						<ul class="nav nav-tabs" style='margin-bottom: 0; margin-left: 10px;'>
+							<li class="active"><a href="#unitab1d" data-toggle="tab">1 Dimensional</a></li>
+							<li><a href="#unitab2d" data-toggle="tab">2 Dimensional</a></li>
+						</ul>
+						<div class="tab-content" style='overflow: visible; height: 525px;'>
+							<div id="unitab1d" class="tab-pane active">
+								<center><div style='margin-top: 5px; margin-bottom: 5px;'>Sample: <span id='uni1dsample'>0</span></div><div id='uni1dslider'></div><div id="uniplot" class="medgraph"></div></center>
+							</div>
+							<div id="unitab2d" class="tab-pane active">
+								<center><br /><div id='unigraph' class='jxgbox medgraph'></div></center>
+								<div class='graphcontrols' style='margin-left: 7px;'><button onclick="JXG.JSXGraph.freeBoard(unijsx); initUni2D();">Reset</button> <span class='mousepos' id='unimousepos'></span></div>
+							</div>
+						</div>
+					</div>
 
 					<script type='text/javascript'>
-						function initUni() {
+						function initUni2D() {
 							unijsx = JXG.JSXGraph.initBoard('unigraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
 							var unisample = unijsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
@@ -110,11 +126,11 @@ require_once('header.php');
 
 							unijsx.on('update', function() {
 								if (unisample.Value() > points.length) {
-									for(i = points.length; i<unisample.Value(); i++) {
+									for(var i = points.length; i<unisample.Value(); i++) {
 										points[i] = unijsx.createElement('point', [Math.round(Math.random() * 16) - 8, Math.round(Math.random() * 16) - 8], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
 									}
 								} else if (unisample.Value() < points.length) {
-									for(i = points.length - 1; i>=unisample.Value(); i--) {
+									for(var i = points.length - 1; i>=unisample.Value(); i--) {
 										points.pop().remove();
 									}
 								}
@@ -147,13 +163,69 @@ require_once('header.php');
 							unijsx.update();
 						}
 
-						initUni();
+						initUni2D();
+
+						function initUni1D() {
+							var points = [];
+							$( "#uni1dslider" ).slider({
+								range: "min",
+								min: 0,
+								max: 200,
+								value: 0,
+								slide: function( event, ui ) {
+									$( "#uni1dsample" ).text(ui.value);
+									if (ui.value > points.length) {
+										for(var i = points.length; i<ui.value; i++) {
+											points[i] = Math.round(Math.random() * 10);
+										}
+									} else if (ui.value < points.length) {
+										for(var i = points.length - 1; i>=ui.value; i--) {
+											points.pop();
+										}
+									}
+									uniplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], uniRenderer()[0]);
+									uniplot.replot();
+								}
+							});
+
+							var uniRenderer = function() {
+								var data = [[0,0,0,0,0,0,0,0,0,0,0]];
+								for (var i=0; i<points.length; i++) {
+									data[0][points[i]] = data[0][points[i]] + 1;
+								}
+								return data;
+							};
+
+							var uniplot = $.jqplot('uniplot',[],{
+								dataRenderer: uniRenderer,
+								seriesDefaults:{
+									renderer: $.jqplot.BarRenderer,
+									rendererOptions: {
+										barWidth: 25
+									}
+								},
+								axes: {
+									xaxis: {
+										renderer: $.jqplot.CategoryAxisRenderer,
+										min: -1,
+										max: 11,
+										numberTicks: 13
+									},
+									yaxis: {
+										min: 0,
+										max: 100
+									}
+								},
+							});
+						}
+
+						initUni1D();
 					</script>
 
 					<br /><br />
 				</div>
 
-				<div>
+				<div style='clear: both;'>
 					<h2 id='normal'>Normal Distribution</h2>
 
 					<br />
@@ -221,11 +293,11 @@ require_once('header.php');
 
 							normjsx.on('update', function() {
 								if (normsample.Value() > points.length) {
-									for(i = points.length; i<normsample.Value(); i++) {
+									for(var i = points.length; i<normsample.Value(); i++) {
 										points[i] = normjsx.createElement('point', normRand(8), {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
 									}
 								} else if (normsample.Value() < points.length) {
-									for(i = points.length - 1; i>=normsample.Value(); i--) {
+									for(var i = points.length - 1; i>=normsample.Value(); i--) {
 										points.pop().remove();
 									}
 								}
@@ -332,11 +404,11 @@ require_once('header.php');
 
 							bnjsx.on('update', function() {
 								if (bnsample.Value() > points.length) {
-									for(i = points.length; i<bnsample.Value(); i++) {
+									for(var i = points.length; i<bnsample.Value(); i++) {
 										points[i] = bnjsx.createElement('point', [bnRand(bntrials.Value(), bnprobability.Value()), bnRand(bntrials.Value(), bnprobability.Value())], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
 									}
 								} else if (bnsample.Value() < points.length) {
-									for(i = points.length - 1; i>=bnsample.Value(); i--) {
+									for(var i = points.length - 1; i>=bnsample.Value(); i--) {
 										points.pop().remove();
 									}
 								}
@@ -432,11 +504,11 @@ require_once('header.php');
 
 							psjsx.on('update', function() {
 								if (pssample.Value() > points.length) {
-									for(i = points.length; i<pssample.Value(); i++) {
+									for(var i = points.length; i<pssample.Value(); i++) {
 										points[i] = psjsx.createElement('point', [psRand(8) - 8, psRand(8) - 8], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
 									}
 								} else if (pssample.Value() < points.length) {
-									for(i = points.length - 1; i>=pssample.Value(); i--) {
+									for(var i = points.length - 1; i>=pssample.Value(); i--) {
 										points.pop().remove();
 									}
 								}
