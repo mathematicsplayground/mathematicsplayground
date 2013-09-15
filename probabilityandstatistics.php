@@ -41,6 +41,8 @@ require_once('header.php');
 						uniplot.series[1].pointLabels.show = $("#unishowmean").is(':checked');
 						uniplot.series[2].show = $("#unishowmedian").is(':checked');
 						uniplot.series[2].pointLabels.show = $("#unishowmedian").is(':checked');
+						uniplot.series[3].show = $("#unishowmode").is(':checked');
+						uniplot.series[3].pointLabels.show = $("#unishowmode").is(':checked');
 						uniplot.replot();
 						unijsx.update();
 						normjsx.update();
@@ -190,25 +192,28 @@ require_once('header.php');
 									}
 									uniplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], uniRenderer()[0]);
 									if(points.length > 0) {
-										uniplot.series[1].data = _.zip([mean(points), mean(points)], [33, "mean"]);
-										uniplot.series[2].data = _.zip([median(points), median(points)], [33, "median"]);
+										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
+										uniplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [33, "mean"]);
+										uniplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [33, "median"]);
+										uniplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [33, "mode"]);
 									} else {
 										uniplot.series[1].data = _.zip([0], [33]);
 										uniplot.series[2].data = _.zip([0], [33]);
+										uniplot.series[3].data = _.zip([0], [33]);
 									}
 									uniplot.replot();
 								}
 							});
 
 							var uniRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [33]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [33], [33]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
 								return data;
 							};
 
-							uniplot = $.jqplot('uniplot',[[],[]],{
+							uniplot = $.jqplot('uniplot',[],{
 								dataRenderer: uniRenderer,
 								series: [
 									{
@@ -235,6 +240,17 @@ require_once('header.php');
 										pointLabels: {
 											show: true,
 											labels: ['median'],
+											location: 's',
+											ypadding: 3
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['mode'],
 											location: 's',
 											ypadding: 3
 										}
