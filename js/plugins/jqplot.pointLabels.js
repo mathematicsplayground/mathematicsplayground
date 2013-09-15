@@ -277,7 +277,7 @@
         }
         p._elems.splice(0, p._elems.length);
 
-        if (p.show) {
+        if (p.show && this.show) {
             var ax = '_'+this._stackAxis+'axis';
         
             if (!p.formatString) {

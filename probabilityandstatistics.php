@@ -37,6 +37,9 @@ require_once('header.php');
 						$("#psshowmedian").is(':checked') ? psmedian.showElement() : psmedian.hideElement();
 						$("#psshowmode").is(':checked') ? psmode.showElement() : psmode.hideElement();
 						$("#psshowrange").is(':checked') ? psrange.showElement() : psrange.hideElement();
+						uniplot.series[1].show = $("#unishowmean").is(':checked');
+						uniplot.series[1].pointLabels.show = $("#unishowmean").is(':checked');
+						uniplot.replot();
 						unijsx.update();
 						normjsx.update();
 						bnjsx.update();
@@ -184,26 +187,44 @@ require_once('header.php');
 										}
 									}
 									uniplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], uniRenderer()[0]);
+									if(points.length > 0) {
+										uniplot.series[1].data = _.zip([mean(points), mean(points)], [33, "mean"]);
+									} else {
+										uniplot.series[1].data = _.zip([0], [33]);
+									}
 									uniplot.replot();
 								}
 							});
 
 							var uniRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
 								return data;
 							};
 
-							var uniplot = $.jqplot('uniplot',[],{
+							uniplot = $.jqplot('uniplot',[[],[]],{
 								dataRenderer: uniRenderer,
-								seriesDefaults:{
-									renderer: $.jqplot.BarRenderer,
-									rendererOptions: {
-										barWidth: 25
+								series: [
+									{
+										renderer: $.jqplot.BarRenderer,
+										rendererOptions: {
+											barWidth: 25
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['mean'],
+											location: 's',
+											ypadding: 3
+										}
 									}
-								},
+								],
 								axes: {
 									xaxis: {
 										renderer: $.jqplot.CategoryAxisRenderer,
