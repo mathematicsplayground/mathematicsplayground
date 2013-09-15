@@ -43,6 +43,8 @@ require_once('header.php');
 						uniplot.series[2].pointLabels.show = $("#unishowmedian").is(':checked');
 						uniplot.series[3].show = $("#unishowmode").is(':checked');
 						uniplot.series[3].pointLabels.show = $("#unishowmode").is(':checked');
+						uniplot.series[4].show = $("#unishowrange").is(':checked');
+						uniplot.series[4].pointLabels.show = $("#unishowrange").is(':checked');
 						uniplot.replot();
 						unijsx.update();
 						normjsx.update();
@@ -193,20 +195,24 @@ require_once('header.php');
 									uniplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], uniRenderer()[0]);
 									if(points.length > 0) {
 										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
+										var min =  Math.min.apply(Math, pointsCopy);
+										var max =  Math.max.apply(Math, pointsCopy);
 										uniplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [33, "mean"]);
 										uniplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [39, "median"]);
 										uniplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [45, "mode"]);
+										uniplot.series[4].data = _.zip([min, max, max], [51, "range", 51]);
 									} else {
 										uniplot.series[1].data = _.zip([0], [33]);
 										uniplot.series[2].data = _.zip([0], [39]);
 										uniplot.series[3].data = _.zip([0], [45]);
+										uniplot.series[4].data = _.zip([0,0], [51,51]);
 									}
 									uniplot.replot();
 								}
 							});
 
 							var uniRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [39], [45]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [39], [45], [51,51]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
@@ -251,6 +257,17 @@ require_once('header.php');
 										pointLabels: {
 											show: true,
 											labels: ['mode'],
+											location: 's',
+											ypadding: 3
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['range'],
 											location: 's',
 											ypadding: 3
 										}
