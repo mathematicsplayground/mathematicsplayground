@@ -194,19 +194,19 @@ require_once('header.php');
 									if(points.length > 0) {
 										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
 										uniplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [33, "mean"]);
-										uniplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [33, "median"]);
-										uniplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [33, "mode"]);
+										uniplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [39, "median"]);
+										uniplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [45, "mode"]);
 									} else {
 										uniplot.series[1].data = _.zip([0], [33]);
-										uniplot.series[2].data = _.zip([0], [33]);
-										uniplot.series[3].data = _.zip([0], [33]);
+										uniplot.series[2].data = _.zip([0], [39]);
+										uniplot.series[3].data = _.zip([0], [45]);
 									}
 									uniplot.replot();
 								}
 							});
 
 							var uniRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [33], [33]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [39], [45]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
