@@ -129,6 +129,15 @@ require_once('header.php');
 						normplot.series[4].pointLabels.show = $("#normshowrange").is(':checked');
 						normplot.replot();
 						normjsx.update();
+						bnplot.series[1].show = $("#bnshowmean").is(':checked');
+						bnplot.series[1].pointLabels.show = $("#bnshowmean").is(':checked');
+						bnplot.series[2].show = $("#bnshowmedian").is(':checked');
+						bnplot.series[2].pointLabels.show = $("#bnshowmedian").is(':checked');
+						bnplot.series[3].show = $("#bnshowmode").is(':checked');
+						bnplot.series[3].pointLabels.show = $("#bnshowmode").is(':checked');
+						bnplot.series[4].show = $("#bnshowrange").is(':checked');
+						bnplot.series[4].pointLabels.show = $("#bnshowrange").is(':checked');
+						bnplot.replot();
 						bnjsx.update();
 						psjsx.update();
 					}
@@ -139,6 +148,7 @@ require_once('header.php');
 						// once all initialisation is complete.
 						$("#unitab2d").removeClass("active");
 						$("#normtab2d").removeClass("active");
+						$("#bntab2d").removeClass("active");
 					});
 				</script>
 
@@ -258,7 +268,7 @@ require_once('header.php');
 
 						function initUni1D() {
 							var points = [];
-							$( "#uni1dslider" ).slider({
+							$("#uni1dslider").slider({
 								range: "min",
 								min: 0,
 								max: 200,
@@ -430,7 +440,7 @@ require_once('header.php');
 
 						function initNorm1D() {
 							var points = [];
-							$( "#norm1dslider" ).slider({
+							$("#norm1dslider").slider({
 								range: "min",
 								min: 0,
 								max: 200,
@@ -491,14 +501,32 @@ require_once('header.php');
 
 					<br /><br />
 
-					<div style='float: left; margin-left: 2em;'>
+					<div style='float: left; margin-left: 1em; margin-top: 5em;'>
 						<input type='checkbox' id='bnshowmean' name='bnshowmean' onclick='toggleShowing();' /><label for='bnshowmean'>Show mean</label><br />
 						<input type='checkbox' id='bnshowmedian' name='bnshowmedian' onclick='toggleShowing();' /><label for='bnshowmedian'>Show median</label><br />
 						<input type='checkbox' id='bnshowmode' name='bnshowmode' onclick='toggleShowing();' /><label for='bnshowmode'>Show mode</label><br />
 						<input type='checkbox' id='bnshowrange' name='bnshowrange' onclick='toggleShowing();' /><label for='bnshowrange'>Show range</label><br />
 					</div>
-					<center><div id='bngraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols' style='margin-left: 202px;'><button onclick="JXG.JSXGraph.freeBoard(bnjsx); initBn();">Reset</button> <span class='mousepos' id='bnmousepos'></span></div>
+					<div class="tabbable" style='float: left; padding-left: 1em;'>
+						<ul class="nav nav-tabs" style='margin-bottom: 0; margin-left: 10px;'>
+							<li class="active"><a href="#bntab1d" data-toggle="tab">1 Dimensional</a></li>
+							<li><a href="#bntab2d" data-toggle="tab">2 Dimensional</a></li>
+						</ul>
+						<div class="tab-content" style='overflow: visible; height: 625px;'>
+							<div id="bntab1d" class="tab-pane active">
+								<center>
+									<div style='margin-top: 5px; margin-bottom: 5px;'>Sample: <span id='bn1dsample'>0</span></div><div id='bn1dslider'></div>
+									<div id="bnplot" class="medgraph"></div>
+									<div style='margin-top: 5px; margin-bottom: 5px;'>Trials: <span id='bn1dtrialslabel'>5</span></div><div id='bn1dtrials'></div>
+									<div style='margin-top: 5px; margin-bottom: 5px;'>Probability: <span id='bn1dprobabilitylabel'>0.5</span></div><div id='bn1dprobability'></div>
+								</center>
+							</div>
+							<div id="bntab2d" class="tab-pane active">
+								<center><br /><div id='bngraph' class='jxgbox medgraph'></div></center>
+								<div class='graphcontrols' style='margin-left: 7px;'><button onclick="JXG.JSXGraph.freeBoard(bnjsx); initBn2D();">Reset</button> <span class='mousepos' id='bnmousepos'></span></div>
+							</div>
+						</div>
+					</div>
 
 					<br />
 					
@@ -508,7 +536,7 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						function initBn() {
+						function initBn2D() {
 							bnjsx = JXG.JSXGraph.initBoard('bngraph', {boundingbox: [-1, 12, 12, -3], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
 							var bnsample = bnjsx.createElement('slider', [[0.75, 11], [8.5, 11], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
@@ -586,7 +614,76 @@ require_once('header.php');
 
 							bnjsx.update();
 						}
-						initBn();
+						initBn2D();
+
+						function initBn1D() {
+							var points = [];
+							$("#bn1dslider").slider({
+								range: "min",
+								min: 0,
+								max: 200,
+								value: 0,
+								slide: function( event, ui ) {
+									$("#bn1dsample").text(ui.value);
+									var trials = $("#bn1dtrials").slider("option", "value");
+									var probability = $("#bn1dprobability").slider("option", "value");
+									if (ui.value > points.length) {
+										for(var i = points.length; i<ui.value; i++) {
+											points[i] = Math.round(bnRand(trials, probability));
+										}
+									} else if (ui.value < points.length) {
+										for(var i = points.length - 1; i>=ui.value; i--) {
+											points.pop();
+										}
+									}
+									update1D(bnplot, points, bnRenderer);
+								}
+							});
+							$("#bn1dtrials").slider({
+								range: "min",
+								min: 0,
+								max: 10,
+								value: 5,
+								slide: function(event, ui) {
+									$("#bn1dtrialslabel").text(ui.value);
+								}
+							});
+							$("#bn1dprobability").slider({
+								range: "min",
+								min: 0,
+								max: 1,
+								value: 0.5,
+								step: 0.1,
+								slide: function(event, ui) {
+									$("#bn1dprobabilitylabel").text(ui.value);
+								}
+							});
+							var bnRenderer = function() {
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83]];
+								for (var i=0; i<points.length; i++) {
+									data[0][points[i]] = data[0][points[i]] + 1;
+								}
+								return data;
+							};
+
+							bnplot = $.jqplot('bnplot',[],{
+								dataRenderer: bnRenderer,
+								series: seriesOpts,
+								axes: {
+									xaxis: {
+										renderer: $.jqplot.CategoryAxisRenderer,
+										min: -1,
+										max: 11,
+										numberTicks: 13
+									},
+									yaxis: {
+										min: 0,
+										max: 100
+									}
+								},
+							});
+						}
+						initBn1D();
 					</script>
 
 					<br /><br />
