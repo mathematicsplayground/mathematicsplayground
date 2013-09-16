@@ -139,6 +139,15 @@ require_once('header.php');
 						bnplot.series[4].pointLabels.show = $("#bnshowrange").is(':checked');
 						bnplot.replot();
 						bnjsx.update();
+						psplot.series[1].show = $("#psshowmean").is(':checked');
+						psplot.series[1].pointLabels.show = $("#psshowmean").is(':checked');
+						psplot.series[2].show = $("#psshowmedian").is(':checked');
+						psplot.series[2].pointLabels.show = $("#psshowmedian").is(':checked');
+						psplot.series[3].show = $("#psshowmode").is(':checked');
+						psplot.series[3].pointLabels.show = $("#psshowmode").is(':checked');
+						psplot.series[4].show = $("#psshowrange").is(':checked');
+						psplot.series[4].pointLabels.show = $("#psshowrange").is(':checked');
+						psplot.replot();
 						psjsx.update();
 					}
 
@@ -149,6 +158,7 @@ require_once('header.php');
 						$("#unitab2d").removeClass("active");
 						$("#normtab2d").removeClass("active");
 						$("#bntab2d").removeClass("active");
+						$("#pstab2d").removeClass("active");
 					});
 				</script>
 
@@ -697,14 +707,27 @@ require_once('header.php');
 
 					<br /><br />
 
-					<div style='float: left; margin-left: 2em;'>
+					<div style='float: left; margin-left: 1em; margin-top: 5em;'>
 						<input type='checkbox' id='psshowmean' name='psshowmean' onclick='toggleShowing();' /><label for='psshowmean'>Show mean</label><br />
 						<input type='checkbox' id='psshowmedian' name='psshowmedian' onclick='toggleShowing();' /><label for='psshowmedian'>Show median</label><br />
 						<input type='checkbox' id='psshowmode' name='psshowmode' onclick='toggleShowing();' /><label for='psshowmode'>Show mode</label><br />
 						<input type='checkbox' id='psshowrange' name='psshowrange' onclick='toggleShowing();' /><label for='psshowrange'>Show range</label><br />
 					</div>
-					<center><div id='psgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols' style='margin-left: 202px;'><button onclick="JXG.JSXGraph.freeBoard(psjsx); initPs();">Reset</button> <span class='mousepos' id='psmousepos'></span></div>
+					<div class="tabbable" style='float: left; padding-left: 1em;'>
+						<ul class="nav nav-tabs" style='margin-bottom: 0; margin-left: 10px;'>
+							<li class="active"><a href="#pstab1d" data-toggle="tab">1 Dimensional</a></li>
+							<li><a href="#pstab2d" data-toggle="tab">2 Dimensional</a></li>
+						</ul>
+						<div class="tab-content" style='overflow: visible; height: 525px;'>
+							<div id="pstab1d" class="tab-pane active">
+								<center><div style='margin-top: 5px; margin-bottom: 5px;'>Sample: <span id='ps1dsample'>0</span></div><div id='ps1dslider'></div><div id="psplot" class="medgraph"></div></center>
+							</div>
+							<div id="pstab2d" class="tab-pane active">
+								<center><br /><div id='psgraph' class='jxgbox medgraph'></div></center>
+								<div class='graphcontrols' style='margin-left: 7px;'><button onclick="JXG.JSXGraph.freeBoard(psjsx); initPs2D();">Reset</button> <span class='mousepos' id='psmousepos'></span></div>
+							</div>
+						</div>
+					</div>
 
 					<br />
 					
@@ -714,7 +737,7 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						function initPs() {
+						function initPs2D() {
 							psjsx = JXG.JSXGraph.initBoard('psgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
 							var pssample = psjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
@@ -791,7 +814,57 @@ require_once('header.php');
 
 							psjsx.update();
 						}
-						initPs();
+						initPs2D();
+
+						function initPs1D() {
+							var points = [];
+							$("#ps1dslider").slider({
+								range: "min",
+								min: 0,
+								max: 200,
+								value: 0,
+								slide: function( event, ui ) {
+									$( "#ps1dsample" ).text(ui.value);
+									if (ui.value > points.length) {
+										for(var i = points.length; i<ui.value; i++) {
+											points[i] = Math.round(psRand(4));
+										}
+									} else if (ui.value < points.length) {
+										for(var i = points.length - 1; i>=ui.value; i--) {
+											points.pop();
+										}
+									}
+									update1D(psplot, points, psRenderer);
+								}
+							});
+
+							var psRenderer = function() {
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83]];
+								for (var i=0; i<points.length; i++) {
+									data[0][points[i]] = data[0][points[i]] + 1;
+								}
+								return data;
+							};
+
+							psplot = $.jqplot('psplot',[],{
+								dataRenderer: psRenderer,
+								series: seriesOpts,
+								axes: {
+									xaxis: {
+										renderer: $.jqplot.CategoryAxisRenderer,
+										min: -1,
+										max: 11,
+										numberTicks: 13
+									},
+									yaxis: {
+										min: 0,
+										max: 100
+									}
+								},
+							});
+						}
+
+						initPs1D();
 					</script>
 
 					<br /><br />
