@@ -19,7 +19,60 @@ require_once('header.php');
 					</ul>
 				</div>
 
-				<script type='text/javascript'>
+					<script type='text/javascript'>
+					seriesOpts = [
+							{
+								renderer: $.jqplot.BarRenderer,
+								rendererOptions: {
+									barWidth: 25
+								}
+							},
+							{
+								renderer: $.jqplot.LineRenderer,
+								showMarker: true,
+								show: false,
+								pointLabels: {
+									show: true,
+									labels: ['mean'],
+									location: 's',
+									ypadding: 3
+								}
+							},
+							{
+								renderer: $.jqplot.LineRenderer,
+								showMarker: true,
+								show: false,
+								pointLabels: {
+									show: true,
+									labels: ['median'],
+									location: 's',
+									ypadding: 3
+								}
+							},
+							{
+								renderer: $.jqplot.LineRenderer,
+								showMarker: true,
+								show: false,
+								pointLabels: {
+									show: true,
+									labels: ['mode'],
+									location: 's',
+									ypadding: 3
+								}
+							},
+							{
+								renderer: $.jqplot.LineRenderer,
+								showMarker: true,
+								show: false,
+								pointLabels: {
+									show: true,
+									labels: ['range'],
+									location: 's',
+									ypadding: 3
+								}
+							}
+					];
+
 					function toggleShowing() {
 						$("#unishowmean").is(':checked') ? unimean.showElement() : unimean.hideElement();
 						$("#unishowmedian").is(':checked') ? unimedian.showElement() : unimedian.hideElement();
@@ -231,58 +284,7 @@ require_once('header.php');
 
 							uniplot = $.jqplot('uniplot',[],{
 								dataRenderer: uniRenderer,
-								series: [
-									{
-										renderer: $.jqplot.BarRenderer,
-										rendererOptions: {
-											barWidth: 25
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['mean'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['median'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['mode'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['range'],
-											location: 's',
-											ypadding: 3
-										}
-									}
-								],
+								series: seriesOpts,
 								axes: {
 									xaxis: {
 										renderer: $.jqplot.CategoryAxisRenderer,
@@ -469,58 +471,7 @@ require_once('header.php');
 
 							normplot = $.jqplot('normplot',[],{
 								dataRenderer: normRenderer,
-								series: [
-									{
-										renderer: $.jqplot.BarRenderer,
-										rendererOptions: {
-											barWidth: 25
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['mean'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['median'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['mode'],
-											location: 's',
-											ypadding: 3
-										}
-									},
-									{
-										renderer: $.jqplot.LineRenderer,
-										showMarker: true,
-										show: false,
-										pointLabels: {
-											show: true,
-											labels: ['range'],
-											location: 's',
-											ypadding: 3
-										}
-									}
-								],
+								series: seriesOpts,
 								axes: {
 									xaxis: {
 										renderer: $.jqplot.CategoryAxisRenderer,
