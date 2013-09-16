@@ -73,6 +73,25 @@ require_once('header.php');
 							}
 					];
 
+					function update1D(plot, points, renderer) {
+						plot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], renderer()[0]);
+						if(points.length > 0) {
+							var pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
+							var min =  Math.min.apply(Math, pointsCopy);
+							var max =  Math.max.apply(Math, pointsCopy);
+							plot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [66.6, "mean"]);
+							plot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [72, "median"]);
+							plot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [78, "mode"]);
+							plot.series[4].data = _.zip([min, max, max], [83, "range", 83]);
+						} else {
+							plot.series[1].data = _.zip([0], [66.6]);
+							plot.series[2].data = _.zip([0], [72]);
+							plot.series[3].data = _.zip([0], [78]);
+							plot.series[4].data = _.zip([0,0], [83]);
+						}
+						plot.replot();
+					}
+
 					function toggleShowing() {
 						$("#unishowmean").is(':checked') ? unimean.showElement() : unimean.hideElement();
 						$("#unishowmedian").is(':checked') ? unimedian.showElement() : unimedian.hideElement();
@@ -255,27 +274,12 @@ require_once('header.php');
 											points.pop();
 										}
 									}
-									uniplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], uniRenderer()[0]);
-									if(points.length > 0) {
-										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
-										var min =  Math.min.apply(Math, pointsCopy);
-										var max =  Math.max.apply(Math, pointsCopy);
-										uniplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [33, "mean"]);
-										uniplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [39, "median"]);
-										uniplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [45, "mode"]);
-										uniplot.series[4].data = _.zip([min, max, max], [51, "range", 51]);
-									} else {
-										uniplot.series[1].data = _.zip([0], [33]);
-										uniplot.series[2].data = _.zip([0], [39]);
-										uniplot.series[3].data = _.zip([0], [45]);
-										uniplot.series[4].data = _.zip([0,0], [51,51]);
-									}
-									uniplot.replot();
+									update1D(uniplot, points, uniRenderer);
 								}
 							});
 
 							var uniRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0], [33], [39], [45], [51,51]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0],  [66.6], [72], [78], [83]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
@@ -442,27 +446,12 @@ require_once('header.php');
 											points.pop();
 										}
 									}
-									normplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], normRenderer()[0]);
-									if(points.length > 0) {
-										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
-										var min =  Math.min.apply(Math, pointsCopy);
-										var max =  Math.max.apply(Math, pointsCopy);
-										normplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [66.6, "mean"]);
-										normplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [72, "median"]);
-										normplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [78, "mode"]);
-										normplot.series[4].data = _.zip([min, max, max], [83, "range", 83]);
-									} else {
-										normplot.series[1].data = _.zip([0], [66.5]);
-										normplot.series[2].data = _.zip([0], [72]);
-										normplot.series[3].data = _.zip([0], [78]);
-										normplot.series[4].data = _.zip([0,0], [83,83]);
-									}
-									normplot.replot();
+									update1D(normplot, points, normRenderer);
 								}
 							});
 
 							var normRenderer = function() {
-								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83,83]];
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83]];
 								for (var i=0; i<points.length; i++) {
 									data[0][points[i]] = data[0][points[i]] + 1;
 								}
