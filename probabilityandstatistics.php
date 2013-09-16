@@ -47,6 +47,15 @@ require_once('header.php');
 						uniplot.series[4].pointLabels.show = $("#unishowrange").is(':checked');
 						uniplot.replot();
 						unijsx.update();
+						normplot.series[1].show = $("#normshowmean").is(':checked');
+						normplot.series[1].pointLabels.show = $("#normshowmean").is(':checked');
+						normplot.series[2].show = $("#normshowmedian").is(':checked');
+						normplot.series[2].pointLabels.show = $("#normshowmedian").is(':checked');
+						normplot.series[3].show = $("#normshowmode").is(':checked');
+						normplot.series[3].pointLabels.show = $("#normshowmode").is(':checked');
+						normplot.series[4].show = $("#normshowrange").is(':checked');
+						normplot.series[4].pointLabels.show = $("#normshowrange").is(':checked');
+						normplot.replot();
 						normjsx.update();
 						bnjsx.update();
 						psjsx.update();
@@ -57,6 +66,7 @@ require_once('header.php');
 						// so all tabs are marked active and then 2D tabs are hidden
 						// once all initialisation is complete.
 						$("#unitab2d").removeClass("active");
+						$("#normtab2d").removeClass("active");
 					});
 				</script>
 
@@ -303,14 +313,27 @@ require_once('header.php');
 
 					<br /><br />
 
-					<div style='float: left; margin-left: 2em;'>
+					<div style='float: left; margin-left: 1em; margin-top: 5em;'>
 						<input type='checkbox' id='normshowmean' name='normshowmean' onclick='toggleShowing();' /><label for='normshowmean'>Show mean</label><br />
 						<input type='checkbox' id='normshowmedian' name='normshowmedian' onclick='toggleShowing();' /><label for='normshowmedian'>Show median</label><br />
 						<input type='checkbox' id='normshowmode' name='normshowmode' onclick='toggleShowing();' /><label for='normshowmode'>Show mode</label><br />
 						<input type='checkbox' id='normshowrange' name='normshowrange' onclick='toggleShowing();' /><label for='normshowrange'>Show range</label><br />
 					</div>
-					<center><div id='normgraph' class='jxgbox medgraph'></div></center>
-					<div class='graphcontrols' style='margin-left: 202px;'><button onclick="JXG.JSXGraph.freeBoard(normjsx); initNorm();">Reset</button> <span class='mousepos' id='normmousepos'></span></div>
+					<div class="tabbable" style='float: left; padding-left: 1em;'>
+						<ul class="nav nav-tabs" style='margin-bottom: 0; margin-left: 10px;'>
+							<li class="active"><a href="#normtab1d" data-toggle="tab">1 Dimensional</a></li>
+							<li><a href="#normtab2d" data-toggle="tab">2 Dimensional</a></li>
+						</ul>
+						<div class="tab-content" style='overflow: visible; height: 525px;'>
+							<div id="normtab1d" class="tab-pane active">
+								<center><div style='margin-top: 5px; margin-bottom: 5px;'>Sample: <span id='norm1dsample'>0</span></div><div id='norm1dslider'></div><div id="normplot" class="medgraph"></div></center>
+							</div>
+							<div id="normtab2d" class="tab-pane active">
+								<center><br /><div id='normgraph' class='jxgbox medgraph'></div></center>
+								<div class='graphcontrols' style='margin-left: 7px;'><button onclick="JXG.JSXGraph.freeBoard(normjsx); initNorm2D();">Reset</button> <span class='mousepos' id='normmousepos'></span></div>
+							</div>
+						</div>
+					</div>
 
 					<br />
 					
@@ -320,7 +343,7 @@ require_once('header.php');
 					<br /><br />
 
 					<script type='text/javascript'>
-						function initNorm() {
+						function initNorm2D() {
 							normjsx = JXG.JSXGraph.initBoard('normgraph', {boundingbox: [-10, 10, 10, -10], grid: true, pan: true, zoom: true, showcopyright: false, axis: true, pan: {needShift: false}});
 
 							var normsample = normjsx.createElement('slider', [[-9.25, 9], [5.5 ,9], [0, 0, 200]], {name: 'Sample', snapWidth: 1});
@@ -397,13 +420,129 @@ require_once('header.php');
 
 							normjsx.update();
 						}
-						initNorm();
+						initNorm2D();
+
+						function initNorm1D() {
+							var points = [];
+							$( "#norm1dslider" ).slider({
+								range: "min",
+								min: 0,
+								max: 200,
+								value: 0,
+								slide: function( event, ui ) {
+									$( "#norm1dsample" ).text(ui.value);
+									if (ui.value > points.length) {
+										for(var i = points.length; i<ui.value; i++) {
+											points[i] = Math.round(normRand(2)[0] + 5);
+										}
+									} else if (ui.value < points.length) {
+										for(var i = points.length - 1; i>=ui.value; i--) {
+											points.pop();
+										}
+									}
+									normplot.series[0].data = _.zip([0,1,2,3,4,5,6,7,8,9,10], normRenderer()[0]);
+									if(points.length > 0) {
+										pointsCopy = points.slice(0); // Use a copy of points to avoid them getting sorted during averaging
+										var min =  Math.min.apply(Math, pointsCopy);
+										var max =  Math.max.apply(Math, pointsCopy);
+										normplot.series[1].data = _.zip([mean(pointsCopy), mean(pointsCopy)], [66.6, "mean"]);
+										normplot.series[2].data = _.zip([median(pointsCopy), median(pointsCopy)], [72, "median"]);
+										normplot.series[3].data = _.zip([mode(pointsCopy)[0], mode(pointsCopy)[0]], [78, "mode"]);
+										normplot.series[4].data = _.zip([min, max, max], [83, "range", 83]);
+									} else {
+										normplot.series[1].data = _.zip([0], [66.5]);
+										normplot.series[2].data = _.zip([0], [72]);
+										normplot.series[3].data = _.zip([0], [78]);
+										normplot.series[4].data = _.zip([0,0], [83,83]);
+									}
+									normplot.replot();
+								}
+							});
+
+							var normRenderer = function() {
+								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83,83]];
+								for (var i=0; i<points.length; i++) {
+									data[0][points[i]] = data[0][points[i]] + 1;
+								}
+								return data;
+							};
+
+							normplot = $.jqplot('normplot',[],{
+								dataRenderer: normRenderer,
+								series: [
+									{
+										renderer: $.jqplot.BarRenderer,
+										rendererOptions: {
+											barWidth: 25
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['mean'],
+											location: 's',
+											ypadding: 3
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['median'],
+											location: 's',
+											ypadding: 3
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['mode'],
+											location: 's',
+											ypadding: 3
+										}
+									},
+									{
+										renderer: $.jqplot.LineRenderer,
+										showMarker: true,
+										show: false,
+										pointLabels: {
+											show: true,
+											labels: ['range'],
+											location: 's',
+											ypadding: 3
+										}
+									}
+								],
+								axes: {
+									xaxis: {
+										renderer: $.jqplot.CategoryAxisRenderer,
+										min: -1,
+										max: 11,
+										numberTicks: 13
+									},
+									yaxis: {
+										min: 0,
+										max: 100
+									}
+								},
+							});
+						}
+
+						initNorm1D();
 					</script>
 
 					<br /><br />
 				</div>
 
-				<div>
+				<div style='clear: both;'>
 					<h2 id='binomial'>Binomial Distribution</h2>
 
 					<br />
