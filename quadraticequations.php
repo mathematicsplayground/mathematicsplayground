@@ -74,13 +74,23 @@ require_once('header.php');
 								var a = qesla.Value().toFixed(2);
 								var b = qeslb.Value().toFixed(2);
 								var c = qeslc.Value().toFixed(2);
-								var solution1 = ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
-								var solution2 = ((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
-								qex1.setLabelText(solution1);
-								qex2.setLabelText(solution2);
+								if ((Math.pow(b, 2) - 4 * a * c) > 0) {
+								  // Ordinary roots
+								  var solution1 = ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
+								  var solution2 = ((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(2);
+								  qex1.setLabelText(solution1);
+								  qex2.setLabelText(solution2);
+								  $("#qeformula3").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
+
+								} else {
+								  // Complex roots
+								  var sq = (- (Math.pow(b, 2) - 4 * a * c)).toFixed(2);
+								  $("#qeformula3").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = \\frac{" + -b + " + i \\sqrt{" + sq + "}}{ " + 2 * a + "}" + "$ or $\\frac{" + -b + " -i \\sqrt{" + sq + "}}{ " + 2 * a + "}$");
+
+								}
+
 								$("#qeformula1").text("$" + a + "x^2 + " + b + "x + " + c + "= 0$");
 								$("#qeformula2").html("$(px + q)(rx + s) = 0$<br/>$pr = " + a + "$<br/>$ps + qr = " + b + "$<br/>$qs = " + c + "$");
-								$("#qeformula3").text("$x = \\frac{" + -b + " \\pm \\sqrt{" + b + "^2 - 4*" + a + "*" + c + "}}{-2 * " + a + "} = " + solution1 + "$ or $" + solution2 + "$");
 								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula1"]);
 								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula2"]);
 								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula3"]);
