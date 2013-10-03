@@ -108,7 +108,7 @@ require_once('header.php');
 								var v2y = (addp2.Y() - addp1.Y()).toFixed(2);
 								var resx = addp2.X().toFixed(2);
 								var resy = addp2.Y().toFixed(2);
-								$("#addresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v1x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
+								$("#addresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v2x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
 								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "addresult"]);
 							});
 
@@ -167,7 +167,7 @@ require_once('header.php');
 								var v2y = subp1.Y().toFixed(2);
 								var resx = (subp2.X() - subp1.X()).toFixed(2);
 								var resy = (subp2.Y() - subp1.Y()).toFixed(2);
-								$("#subresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v1x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
+								$("#subresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v2x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
 								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "subresult"]);
 							});
 
