@@ -28,7 +28,8 @@ require_once('header.php');
 
 					<br /><br />
 
-					<table class='matrix' style='margin-left: 1em; margin-right: 1.5em; margin-top: 200px;'>
+                                        <div style="overflow: auto; width: 100%">
+					  <table class='matrix' style='margin-left: 1em; margin-right: 1.5em;'>
 						<tr>
 							<td class='matrixtop'></td>
 							<td><span id='m1a1' class='matrixresult'>1.00</span></td>
@@ -41,13 +42,12 @@ require_once('header.php');
 							<td><span id='m1b2' class='matrixresult'>1.00</span></td>
 							<td class='matrixbottom'></td>
 						</tr>
-					</table>
+					  </table>
 
-					<div class="operator" style='margin-top: 200px;'>
-					*
-					</div>
+                                          <p style="float:left;"> This matrix multiplied by each vector would give:</p>
+                                        </div>
 
-					<div style='float: right;'>
+					<div>
 					<div id='scalegraph' class='jxgbox medgraph'></div>
 					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(scalejsx); initScale();">Reset positions</button> <span class='mousepos' id='scalemousepos'></span><br /><br /><input type='checkbox' id='applytoimage1' onclick='applyToImage1();' /><label for='applytoimage1'>Apply to image</label></div>
 					</div>
@@ -121,7 +121,8 @@ require_once('header.php');
 
 					<br /><br />
 
-					<table class='matrix' style='margin-left: 4em; margin-right: 1.5em; margin-top: 200px;'>
+					<div style="overflow: auto; width: 100%">	  
+					  <table class='matrix' style='margin-left: 1em; margin-right: 1.5em;'>
 						<tr>
 							<td class='matrixtop'></td>
 							<td><span id='m2a1' class='matrixresult'>0.00</span></td>
@@ -132,13 +133,12 @@ require_once('header.php');
 							<td><span id='m2b1' class='matrixresult'>0.00</span></td>
 							<td class='matrixbottom'></td>
 						</tr>
-					</table>
+					  </table>
 
-					<div class="operator" style='margin-top: 200px;'>
-					+
+					  <p>This matrix added to each vector would give:</p>
 					</div>
 
-					<div style='float: right;'>
+					<div>
 					<div id='transgraph' class='jxgbox medgraph'></div>
 					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(transjsx); initTrans();">Reset positions</button> <span class='mousepos' id='transmousepos'></span><br /><br /><input type='checkbox' id='applytoimage2' onclick='applyToImage2();' /><label for='applytoimage2'>Apply to image</label></div>
 					</div>
@@ -214,7 +214,8 @@ require_once('header.php');
 
 					<br /><br />
 
-					<div style='margin-left: 0em; margin-right: 0.5em; margin-top: 150px; float: left;'>
+					<div style="overflow: auto; width: 100%">
+
 					<table class='matrix'>
 						<tr>
 							<td class='matrixtop'></td>
@@ -228,11 +229,12 @@ require_once('header.php');
 							<td>cos(<span id='m3b2t' class='matrixresult'>0.00</span>)</td>
 							<td class='matrixbottom'></td>
 						</tr>
-					</table> <br />
+					</table> 
 
 					<div class="operator">
 					=
 					</div>
+
 
 					<table class='matrix'>
 						<tr>
@@ -248,13 +250,13 @@ require_once('header.php');
 							<td class='matrixbottom'></td>
 						</tr>
 					</table>
+
+					</div>
+					<div style="overflow: auto; width: 100%">	  
+						  <p>This matrix multiplied by each vector would give:</p>
 					</div>
 
-					<div class="operator" style='margin-top: 200px;'>
-					*
-					</div>
-
-					<div style='float: right;'>
+					<div>
 					<div id='rotgraph' class='jxgbox medgraph'></div>
 					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(rotjsx); initRot();">Reset positions</button> <span class='mousepos' id='rotmousepos'></span><br /><br /><input type='checkbox' id='applytoimage3' onclick='applyToImage3();' /><label for='applytoimage3'>Apply to image</label></div>
 					</div>
@@ -336,7 +338,8 @@ require_once('header.php');
 
 					<br /><br />
 
-					<table class='matrix' style='margin-left: 1em; margin-right: 1.5em; margin-top: 200px;'>
+					<div style="overflow: auto; width: 100%;">
+					  <table class='matrix' style='margin-left: 1em; margin-right: 1.5em;'>
 						<tr>
 							<td class='matrixtop'></td>
 							<td><span id='m4a1' class='matrixresult'>1.00</span></td>
@@ -349,13 +352,13 @@ require_once('header.php');
 							<td><span id='m4b2' class='matrixresult'>1.00</span></td>
 							<td class='matrixbottom'></td>
 						</tr>
-					</table>
+					  </table>
 
-					<div class="operator" style='margin-top: 200px;'>
-					*
+					  <p>This matrix multiplied by each vector would give:</p>
 					</div>
 
-					<div style='float: right;'>
+
+					<div>
 					<div id='sheargraph' class='jxgbox medgraph'></div>
 					<div class='graphcontrols' style='left: -123px;'><button onclick="JXG.JSXGraph.freeBoard(shearjsx); initShear();">Reset positions</button> <span class='mousepos' id='shearmousepos'></span><br /><br /><input type='checkbox' id='applytoimage4' onclick='applyToImage4();' /><label for='applytoimage4'>Apply to image</label></div>
 					</div>
