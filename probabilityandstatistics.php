@@ -588,7 +588,9 @@ require_once('header.php');
 
 							bnrange = bnjsx.createElement('polygon', [bnrp1, bnrp2, bnrp3, bnrp4], {fixed: true, strokeColor: '#44c', fillColor: '#44c', visible: false});
 
-							bnjsx.on('update', function() {
+						
+
+							var redrawGraph = function() {
 								if (bnsample.Value() > points.length) {
 									for(var i = points.length; i<bnsample.Value(); i++) {
 										points[i] = bnjsx.createElement('point', [bnRand(bntrials.Value(), bnprobability.Value()), bnRand(bntrials.Value(), bnprobability.Value())], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
@@ -615,12 +617,32 @@ require_once('header.php');
 									bnrp3.setPosition(JXG.COORDS_BY_USER, [0, 0]);
 									bnrp4.setPosition(JXG.COORDS_BY_USER, [0, 0]);
 								}
-							});
+							    bnjsx.update();
+							};
+
+
+							var clearAndRedrawPoints = function() { 
+							  for(var i = points.length - 1; i>=0; i--) {
+							    points.pop().remove();
+							  }
+							  if (bnsample.Value() > points.length) {
+							    for(var i = points.length; i<bnsample.Value(); i++) {
+							      points[i] = bnjsx.createElement('point', [bnRand(bntrials.Value(), bnprobability.Value()), bnRand(bntrials.Value(), bnprobability.Value())], {fixed: true, withLabel: false, strokeColor: 'black', fillColor: 'black', size: 1});
+							    }
+							  }
+							  redrawGraph(); 
+							}
+
 
 							bnjsx.on('mousemove', function(e) {
 								var mPos = bnjsx.getUsrCoordsOfMouse(e);
 								$('#bnmousepos').text(mPos[0].toFixed(2) + ', ' + mPos[1].toFixed(2));
 							});
+
+
+							bnsample.on('drag', redrawGraph);
+							bntrials.on("drag", clearAndRedrawPoints );
+							bnprobability.on("drag", clearAndRedrawPoints );
 
 							bnjsx.update();
 						}
@@ -649,6 +671,21 @@ require_once('header.php');
 									update1D(bnplot, points, bnRenderer);
 								}
 							});
+
+							var bnClearAndRedraw = function(event,ui) {
+							  var numPoints = $("#bn1dslider").slider("option","value")
+							  var trials = $("#bn1dtrials").slider("option", "value");
+							  var probability = $("#bn1dprobability").slider("option", "value");
+
+							  points = [];
+							  if (numPoints > points.length) {
+							    for(var i = points.length; i<numPoints; i++) {
+							      points[i] = Math.round(bnRand(trials, probability));
+							    }
+							    update1D(bnplot, points, bnRenderer);
+							  }
+							}
+
 							$("#bn1dtrials").slider({
 								range: "min",
 								min: 0,
@@ -656,8 +693,10 @@ require_once('header.php');
 								value: 5,
 								slide: function(event, ui) {
 									$("#bn1dtrialslabel").text(ui.value);
-								}
+							        },
 							});
+							$( "#bn1dtrials" ).on( "slidechange", bnClearAndRedraw);
+
 							$("#bn1dprobability").slider({
 								range: "min",
 								min: 0,
@@ -668,6 +707,8 @@ require_once('header.php');
 									$("#bn1dprobabilitylabel").text(ui.value);
 								}
 							});
+							$( "#bn1dprobability" ).on( "slidechange", bnClearAndRedraw);
+
 							var bnRenderer = function() {
 								var data = [[0,0,0,0,0,0,0,0,0,0,0], [66.6], [72], [78], [83]];
 								for (var i=0; i<points.length; i++) {
