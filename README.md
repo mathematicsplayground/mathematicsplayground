@@ -18,7 +18,7 @@ mathematical concepts.
 Website
 -------
 
-* Project web site: http://mathplay.dcs.aber.ac.uk
+* Project web site: https://mathematicsplayground.dcs.aber.ac.uk
 * GitHub project site: https://github.com/mathematicsplayground/mathematicsplayground
 
 Please report bugs to our issue tracking system found at
@@ -39,7 +39,7 @@ examples. Simply make a merge request and we'll be happy to review your
 improvements.
 
 For a list of examples we'd like to see implemented take a look at our
-about page: http://mathematicsplayground.dcs.aber.ac.uk/about.php
+about page: https://mathematicsplayground.dcs.aber.ac.uk/about.php
 
 License
 -------
