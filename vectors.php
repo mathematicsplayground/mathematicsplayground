@@ -109,7 +109,9 @@ require_once('header.php');
 								var resx = addp2.X().toFixed(2);
 								var resy = addp2.Y().toFixed(2);
 								$("#addresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v2x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
-								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "addresult"]);
+								if (typeof(MathJax) !== 'undefined') {
+									MathJax.Hub.Queue(["Typeset", MathJax.Hub, "addresult"]);
+								}
 							});
 
 							addjsx.on('mousemove', function(e) {
@@ -168,7 +170,9 @@ require_once('header.php');
 								var resx = (subp2.X() - subp1.X()).toFixed(2);
 								var resy = (subp2.Y() - subp1.Y()).toFixed(2);
 								$("#subresult").text("$\\begin{bmatrix} " + v1x + " \\\\" + v1y + "\\end{bmatrix} + \\begin{bmatrix} " + v2x + " \\\\ " + v2y + " \\end{bmatrix} = \\begin{bmatrix} " + resx + " \\\\" + resy + "\\end{bmatrix}$");
-								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "subresult"]);
+								if (typeof(MathJax) !== 'undefined') {
+									MathJax.Hub.Queue(["Typeset", MathJax.Hub, "subresult"]);
+								}
 							});
 
 							subjsx.on('mousemove', function(e) {
