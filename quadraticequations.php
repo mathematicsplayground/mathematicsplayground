@@ -91,9 +91,11 @@ require_once('header.php');
 
 								$("#qeformula1").text("$" + a + "x^2 + " + b + "x + " + c + "= 0$");
 								$("#qeformula2").html("$(px + q)(rx + s) = 0$<br/>$pr = " + a + "$<br/>$ps + qr = " + b + "$<br/>$qs = " + c + "$");
-								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula1"]);
-								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula2"]);
-								MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula3"]);
+								if (typeof(MathJax) !== 'undefined') {
+									MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula1"]);
+									MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula2"]);
+									MathJax.Hub.Queue(["Typeset", MathJax.Hub, "qeformula3"]);
+								}
 							});
 
 							qejsx.on('mousemove', function(e) {
