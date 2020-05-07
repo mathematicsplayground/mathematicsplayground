@@ -6,7 +6,7 @@ require_once('header.php');
 		<div class="container-fluid">
 			<?php require_once('menu_cy.html'); ?>
 			<div class="span9">
-				<img src='img/mathematics_playground.png' alt='Mathematics Playground' title='Mathematics Playground' />	
+				<img src='img/maeschwaraemathemateg.png' alt='Maes Chwarae Mathemateg' title='Maes Chwarae Mathemateg' />	
 				<div class="dropdown clearfix" style='float: right; margin-left: 1em;'>
 					<ul class="dropdown-menu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
 						<li><a href="#cydnabyddiaeth">Cydnabyddiaeth</a></li>

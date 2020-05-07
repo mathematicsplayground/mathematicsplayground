@@ -6,7 +6,7 @@ require_once('header.php');
 		<div class="container-fluid">
 			<?php require_once('menu_cy.html'); ?>
 			<div class="span9">
-				<img src='img/mathematics_playground.png' alt='Maes Chwarae Mathemateg' title='Maes Chwarae Mathemateg' />
+				<img src='img/maeschwaraemathemateg.png' alt='Maes Chwarae Mathemateg' title='Maes Chwarae Mathemateg' />
 
 				<div>
 					<h2 id="overview">Trosolwg</h2>
