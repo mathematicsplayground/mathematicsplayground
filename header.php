@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="js/underscore.min.js"></script>
+		<script type="text/javascript" src="js/underscore-umd-min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jsxgraphcore.js"></script>
 		<script type="text/javascript" src="js/jsxgraph.vector.js"></script>
